@@ -1,0 +1,33 @@
+.ullist {
+  overflow: auto;
+  background-color: white;
+  box-sizing: border-box;
+  padding: 15px;
+  height: 100vh;
+}
+.ullist li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e7e7e7;
+  padding: 0 10px;
+  height: 50px;
+}
+.ullist li strong {
+  font-size: 14px;
+}
+.ullist li p {
+  font-size: 13px;
+  cursor: pointer;
+}
+.ullist li p:hover {
+  color: #327DFC;
+}
+.ullist .nav {
+  font-size: 20px;
+  font-weight: 900;
+  height: 65px;
+}
+.ullist .shanghaojx {
+  font-size: 20px;
+}

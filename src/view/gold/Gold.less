@@ -1,0 +1,287 @@
+.gold-top {
+  height: 52px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 16px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #323232;
+  .gold-top-back-box {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translate(0, -50%);
+    display: flex;
+    align-items: center;
+    .gold-top-back {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.gold-content {
+  flex: 1;
+  box-sizing: border-box;
+  background: #f7f7f7;
+  .account-massage {
+    margin-top: 20px;
+    padding: 8px 20px;
+    background: #fff;
+    .account-massage-item {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #666666;
+      .account-massage-item-text {
+        flex: 1;
+        margin-left: 8px;
+        color: #323232;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .account-massage-item-text-icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    .account-massage-item-bottom-border {
+      border-bottom: 1px solid rgba(238, 238, 238, 0.5);
+    }
+  }
+  .gold-main-box {
+    margin-top: 20px;
+    padding: 20px 16px 50px 16px;
+    background: #fff;
+    box-sizing: border-box;
+    .gold-main-title {
+      font-size: 15px;
+      font-family: PingFang SC-Bold, PingFang SC;
+      font-weight: bold;
+      color: #323232;
+      margin-bottom: 16px;
+    }
+    // 微信充值
+    .gold-main-money-box {
+      display: flex;
+      flex-wrap: wrap;
+      // justify-content: space-between;
+      .gold-main-money-item {
+        margin-bottom: 12px;
+        margin-right: 16px;
+        width: 104px;
+        height: 65px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+        border-radius: 4px;
+        border: 1px solid #e5e5e6;
+        box-sizing: border-box;
+        font-size: 24px;
+        font-family: DIN-Bold, DIN;
+        font-weight: bold;
+        color: #323232;
+        .gold-main-money-price {
+          font-size: 10px;
+          font-family: PingFang SC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #666666;
+        }
+      }
+    }
+    .gold-bottom-btn {
+      margin-top: 56px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      background: #f53c59;
+      border-radius: 20px;
+      box-sizing: border-box;
+      font-size: 14px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #ffffff;
+    }
+    // ustd
+    .gold-ustd-regard {
+      padding: 10px 13px;
+      display: flex;
+      background: #e6f7ff;
+      border: 1px solid #91d5ff;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #323232;
+      .gold-ustd-regard-icon {
+        width: 14px;
+        height: 14px;
+        margin-top: 3px;
+        margin-right: 8px;
+      }
+    }
+    .gold-collection-account {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #666666;
+      .gold-collection-title {
+        width: 75px;
+      }
+      .gold-collection-account-text {
+        flex: 1;
+        white-space: nowrap; /* 防止文本换行 */
+        overflow: hidden; /* 隐藏溢出的文本 */
+        text-overflow: ellipsis; /* 显示省略号 */
+        margin-left: 8px;
+        font-size: 15px;
+        font-family: PingFang SC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #323232;
+      }
+    }
+    .gold-ustd-title {
+      margin-top: 20px;
+      font-size: 15px;
+      font-family: PingFang SC-Bold, PingFang SC;
+      font-weight: bold;
+      color: #323232;
+    }
+    .gold-ustd-input-box {
+      margin-top: 12px;
+    }
+    // kami
+    .gold-main-kami-input {
+      height: 44px;
+      display: flex;
+      padding: 11px 16px;
+      box-sizing: border-box;
+      background: #f7f7f7;
+      border-radius: 4px;
+    }
+    //kamiPay
+    .gold-main-item-kamiPay {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #666666;
+      .gold-main-item-kamiPay-content {
+        margin-left: 8px;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 15px;
+        font-family: PingFang SC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #999999;
+        .gold-main-item-kamiPay-icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      .gold-item-kamiPay-content {
+        margin-left: 8px;
+        font-size: 15px;
+        font-family: PingFang SC-Bold, PingFang SC;
+        font-weight: bold;
+        color: #323232;
+      }
+    }
+    // 不动
+    .gold-record {
+      margin-top: 16px;
+      font-size: 14px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #323232;
+      text-align: center;
+      cursor: pointer;
+    }
+    .gold-regard {
+      margin-top: 60px;
+      height: 44px;
+      text-align: center;
+      line-height: 44px;
+      padding: 0 16px;
+      box-sizing: border-box;
+      background: #f7f6fb;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #a0a0a1;
+    }
+  }
+  //审核中，成功
+  .gold-pay-careful {
+    padding: 80px 24px 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .gold-pay-careful-icon {
+      width: 80px;
+      height: 80px;
+    }
+    .gold-pay-careful-text {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 14px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+    }
+    .gold-pay-careful-btn {
+      margin-top: 80px;
+      width: 100%;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      background: #327dfc;
+      border-radius: 20px;
+      font-size: 14px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #ffffff;
+    }
+  }
+}
+
+.gold-wexin-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .gold-wexin-modal-src {
+    width: 120px;
+    height: 120px;
+  }
+  .wexin-modal-payment-title {
+    margin-top: 16px;
+    font-size: 18px;
+    font-family: Microsoft YaHei-Regular, Microsoft YaHei;
+    font-weight: 400;
+    color: #323232;
+  }
+  .wexin-modal-title {
+    font-size: 14px;
+    font-family: Microsoft YaHei-Regular, Microsoft YaHei;
+    font-weight: 400;
+    color: #666666;
+    line-height: 30px;
+  }
+}

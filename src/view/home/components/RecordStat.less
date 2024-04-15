@@ -1,0 +1,96 @@
+.record-stat {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 230px;
+  padding: 16px;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 8px;
+
+  .record-stat-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .data-stat {
+      font-size: 16px;
+      font-family: PingFang SC-Bold, PingFang SC;
+      font-weight: bold;
+      color: #212121;
+    }
+    .look-more {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #999999;
+      .more-icon {
+        width: 17px;
+        height: 17px;
+      }
+    }
+  }
+  .record-stat-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    .progress-ring {
+      width: 133px;
+      height: 133px;
+      border-radius: 50%;
+      position: relative;
+      background: conic-gradient(
+        #2ebbff 0% 25%,
+        /* 第二个分段颜色 */ #0cd891 25% 50%,
+        /* 第三个分段颜色 */ #ff6e6d 50% 60%,
+        /* 第四个分段颜色 */ #9e6ad8 60% 75%,
+        #2ebbff 75% 100%
+      );
+    }
+    .text {
+      width: 88%;
+      height: 88%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      font-family: PingFang SC-Bold, PingFang SC;
+      font-weight: bold;
+      color: #323232;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 50%;
+    }
+    .record-data-right {
+      margin-left: 25px;
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      .record-data-item-bottom {
+        margin-bottom: 18px;
+      }
+      .record-data-item {
+        width: 80px;
+        text-align: center;
+        .record-data-item-data {
+          font-size: 14px;
+          font-family: PingFang SC-Bold, PingFang SC;
+          font-weight: bold;
+          color: #323232;
+        }
+        .record-data-item-title {
+          font-size: 10px;
+          font-family: PingFang SC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #999999;
+        }
+      }
+    }
+  }
+}

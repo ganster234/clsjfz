@@ -1,0 +1,92 @@
+.home {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 0 12px 40px 12px;
+  box-sizing: border-box;
+  background-image: url('../../assets/image/bg.jpg');
+  background-size: cover;
+}
+.home .home-header {
+  height: 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+.home .home-header .home-header-icon {
+  width: 24px;
+  height: 24px;
+}
+.home .home-header .home-header-icon-left {
+  margin-left: 16px;
+}
+.home .home-header .home-header-right-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.home .home-user-info {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.home .home-user-info .user-avater {
+  margin-right: 7px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+.home .home-user-info .user-info-name {
+  flex: 1;
+  font-size: 16px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #ffffff;
+}
+.home .home-user-info .home-user-cash {
+  width: 66px;
+  height: 28px;
+  text-align: center;
+  line-height: 28px;
+  font-size: 12px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #327dfc;
+  background: #fff;
+  border-radius: 14px;
+}
+.home .amount-money {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-around;
+}
+.home .amount-money .amount-item {
+  text-align: center;
+}
+.home .amount-money .amount-item .amount-balance-income {
+  font-size: 16px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #ffffff;
+}
+.home .amount-money .amount-item .amount-title {
+  font-size: 10px;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #ffffff;
+}
+.home .sales-data-table {
+  margin-top: 12px;
+  box-sizing: border-box;
+  padding-top: 12px;
+  height: 330px;
+  background: #fff;
+  border-radius: 8px;
+}
+.home .sales-data-table .sales-data-table-title {
+  margin-bottom: 10px;
+  text-align: end;
+}

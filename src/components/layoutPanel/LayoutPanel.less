@@ -1,0 +1,22 @@
+.layout-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .layout-panel-top {
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+  }
+  .layout-panel-content {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: scroll;
+  }
+  .layout-panel-bottom {
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+  }
+}

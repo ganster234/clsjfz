@@ -1,0 +1,84 @@
+.user-list-top {
+  height: 96px;
+}
+.user-list-top .user-list-top-title {
+  height: 52px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative ;
+  font-size: 16px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #323232;
+}
+.user-list-top .user-list-top-title .user-list-top-back-icon {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translate(0, -50%);
+}
+.user-list-top .user-list-top-title .user-list-top-right-reset {
+  width: 32px;
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  font-weight: normal;
+  font-size: 14px;
+  transform: translate(0, -50%);
+}
+.user-list-top .user-list-and-name {
+  height: 44px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #212121;
+}
+.user-list-top .user-list-and-name .user-list-name {
+  display: flex;
+  align-items: center;
+}
+.user-list-top .user-list-and-name .user-list-triangle {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+}
+.user-list-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f7f7f7;
+  box-sizing: border-box;
+  padding: 20px 12px;
+}
+.user-list-content .user-list-main {
+  flex: 1;
+  padding: 16px;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 8px;
+}
+.user-list-content .user-list-main .user-list-main-title {
+  font-size: 14px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #323232;
+  margin-bottom: 12px;
+}
+.money-modal-input {
+  height: 46px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  background: #f5f6fa;
+  border-radius: 4px;
+}

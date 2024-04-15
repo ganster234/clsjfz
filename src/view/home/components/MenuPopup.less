@@ -1,0 +1,90 @@
+.menu-popup {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .user-info-message {
+    height: 171px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: url("../../../assets/image/home/menu/user-infp-bg.png");
+    background-size: 100% 171px;
+    font-size: 16px;
+    font-family: PingFang SC-Bold, PingFang SC;
+    font-weight: bold;
+    color: #212121;
+    padding: 0 25px;
+    position: relative;
+    .menu-avater-box {
+      display: flex;
+      align-items: center;
+      .menu-user-avater {
+        width: 42px;
+        height: 42px;
+        margin-right: 5px;
+      }
+    }
+    .menu-popup-back {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      width: 32px;
+      height: 32px;
+    }
+  }
+  .menu-list {
+    flex:1;
+    margin-top: 40px;
+    .menu-list-item {
+      height: 49px;
+      padding: 0 54px 0 24px;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #212121;
+      .menu-list-item-content{
+        flex:1;
+      }
+      .menu-list-item-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 15px;
+      }
+      .menu-right-icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  .sign-service {
+    padding: 20px 24px;
+    .menu-service-box {
+      min-height: 104px;
+      padding: 16px 12px;
+      background: #f3f8ff;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #212121;
+      line-height: 26px;
+    }
+    .exit-sign {
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      font-family: PingFang SC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #212121;
+      .exit-sign-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 15px;
+      }
+    }
+  }
+}

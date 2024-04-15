@@ -1,0 +1,205 @@
+.thali-config-content {
+  flex: 1;
+  padding: 0 12px 12px 12px;
+  box-sizing: border-box;
+  background: #f7f7f7;
+}
+.thali-config-content .thail-config-icon-box {
+  padding: 20px 0;
+  text-align: center;
+}
+.thali-config-content .thail-config-icon-box .thail-config-icon {
+  width: 187px;
+  height: 187px;
+}
+.thali-config-content .thail-package-all {
+  padding: 16px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 8px;
+}
+.thali-config-content .thail-package-all .package-all-title {
+  font-size: 16px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #212121;
+}
+.thali-config-content .thail-package-all .package-all-select-box {
+  padding: 12px 0 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 14px;
+  font-family: PingFangSC-Regular-, PingFangSC-Regular;
+  font-weight: normal;
+  color: #666666;
+}
+.thali-config-content .thail-package-all .package-all-select-box .package-all-select-item {
+  display: flex;
+  align-items: center;
+}
+.thali-config-content .thail-package-all .package-all-select-box .package-all-select {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-family: PingFangSC-Regular-, PingFangSC-Regular;
+  font-weight: normal;
+  color: #999999;
+}
+.thali-config-content .thail-package-all .package-all-select-box .package-all-select .package-all-select-icon {
+  width: 19px;
+  height: 19px;
+}
+.thali-config-content .thail-package-all .thail-package-all-item {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.thali-config-content .thail-package-all .thail-package-all-item .package-detail-title {
+  font-size: 14px;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #212121;
+}
+.thali-config-content .thail-package-all .thail-package-all-item .package-item-left {
+  font-size: 14px;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #666666;
+}
+.thali-config-content .thail-package-all .thail-package-all-item .package-item-right {
+  font-size: 14px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #f73d48;
+}
+.thali-config-content .thail-package-insure {
+  margin-top: 12px;
+  height: 196px;
+  padding: 16px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 8px;
+}
+.thali-config-content .thail-package-insure .thail-package-insure-title {
+  font-size: 16px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #212121;
+}
+.thali-config-content .thail-package-insure .thail-insure-item {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.thali-config-content .thail-package-insure .thail-insure-item .thail-insure-item-left {
+  font-size: 14px;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #212121;
+}
+.thali-config-content .thail-package-insure .thail-insure-item .thail-insure-content {
+  margin-left: 8px;
+  flex: 1;
+  font-size: 14px;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #327dfc;
+}
+.thali-config-content .thail-package-insure .thail-insure-item .thail-insure-item-right-color {
+  color: #323232;
+}
+.thali-config-content .thail-package-insure .thail-insure-item .thail-insure-item-right-red {
+  color: #f73d48;
+}
+.thali-config-content .thail-package-insure .thail-insure-item .thail-insure-item-right {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+}
+.thali-config-content .thail-package-insure .thail-insure-item .thail-insure-item-right .thail-insure-right-icon {
+  width: 20px;
+  height: 20px;
+}
+.thali-config-content .thail-introduce {
+  margin-top: 12px;
+  height: 260px;
+  background: #ffffff;
+  padding: 16px;
+  box-sizing: border-box;
+  border-radius: 8px 8px 8px 8px;
+}
+.thali-config-content .thail-introduce .thail-introduce-title {
+  font-size: 14px;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #212121;
+  margin-bottom: 12px;
+}
+.thali-config-content .thail-introduce .thail-introduce-content {
+  font-size: 12px;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #666666;
+  line-height: 24px;
+  margin-bottom: 5px;
+}
+.thali-config-bottom {
+  height: 122px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #eaeaea;
+}
+.thali-config-bottom .thali-config-total-price {
+  height: 49px;
+  box-sizing: border-box;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.thali-config-bottom .thali-config-total-price .thali-config-total-price-title {
+  font-size: 13px;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #323232;
+}
+.thali-config-bottom .thali-config-total-price .thali-config-total-price-text {
+  font-size: 16px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #f73d48;
+}
+.thali-config-bottom .thali-config-total-price .thali-config-total-price-content {
+  font-size: 13px;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #f73d48;
+}
+.thali-config-bottom .thali-config-payment-btn-box {
+  height: 72px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+.thali-config-bottom .thali-config-payment-btn-box .thali-payment-btn {
+  width: 327px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  box-sizing: border-box;
+  background: #fcab32;
+  border-radius: 26px;
+  font-size: 12px;
+  font-family: Microsoft YaHei-Regular, Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+}

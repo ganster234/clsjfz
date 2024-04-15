@@ -1,0 +1,63 @@
+.calendar-custom .adm-calendar-cell {
+  justify-content: center;
+  height: 38px;
+}
+.calendar-custom .adm-calendar-cell-bottom {
+  display: none;
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected {
+  background: #e5f2fa;
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected .adm-calendar-cell-top {
+  height: 38px;
+  width: 38px;
+  border-radius: 99px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e5f2fa;
+  color: var(--adm-color-primary);
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell-selected-begin {
+  background: linear-gradient(to right, var(--adm-color-white) 50%, #e5f2fa 51%, #e5f2fa);
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell-selected-begin .adm-calendar-cell-top {
+  height: 38px;
+  width: 38px;
+  border-radius: 99px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--adm-color-primary);
+  color: var(--adm-color-white);
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell-selected-begin.adm-calendar-cell-selected-row-end {
+  background: transparent;
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell-selected-begin.adm-calendar-cell-selected-end {
+  background: var(--adm-color-white);
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell-selected-end {
+  background: linear-gradient(to right, #e5f2fa 50%, var(--adm-color-white) 51%, var(--adm-color-white));
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell-selected-end .adm-calendar-cell-top {
+  height: 38px;
+  width: 38px;
+  border-radius: 99px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--adm-color-primary);
+  color: var(--adm-color-white);
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell-selected-end.adm-calendar-cell-selected-row-start {
+  background: transparent;
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell-selected-row-begin {
+  border-top-left-radius: 99px;
+  border-bottom-left-radius: 99px;
+}
+.calendar-custom .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell-selected-row-end {
+  border-top-right-radius: 99px;
+  border-bottom-right-radius: 99px;
+}

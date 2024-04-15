@@ -1,0 +1,45 @@
+.system {
+  margin-top: 12px;
+  background: #ffffff;
+  border-radius: 8px;
+  .system-title {
+    padding: 16px 16px 0 16px;
+    font-size: 16px;
+    font-family: PingFang SC-Bold, PingFang SC;
+    font-weight: bold;
+    color: #323232;
+  }
+  .system-item-bottom{
+    border-bottom: 1px solid #eeeeee;
+  }
+  .system-item {
+    height: 49px;
+    margin: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .system-item-icon {
+      width: 12px;
+      height: 12px;
+      margin-right: 5px;
+    }
+    .system-item-title {
+      flex: 1;
+      white-space: nowrap; /* 禁止文本换行 */
+      overflow: hidden; /* 隐藏超出容器的内容 */
+      text-overflow: ellipsis; /* 显示省略号 */
+    }
+    .system-obtain {
+      font-size: 12px;
+      font-family: Microsoft YaHei-Regular, Microsoft YaHei;
+      font-weight: 400;
+      color: #3173ed;
+      width: 63px;
+      height: 24px;
+      text-align: center;
+      line-height: 24px;
+      background: #efeff1;
+      border-radius: 12px 12px 12px 12px;
+    }
+  }
+}

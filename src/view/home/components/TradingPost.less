@@ -1,0 +1,29 @@
+.trading-post {
+  margin-top: 12px;
+  height: 48px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-family: PingFang SC-Bold, PingFang SC;
+  font-weight: bold;
+  color: #323232;
+  background: #ffffff;
+  border-radius: 8px;
+  .trading-post-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-family: PingFang SC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #323232;
+    .trading-post-main-text {
+      max-width: 259px;
+      white-space: nowrap; /* 禁止文本换行 */
+      overflow: hidden; /* 隐藏超出容器的内容 */
+      text-overflow: ellipsis; /* 显示省略号 */
+    }
+  }
+}

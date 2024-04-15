@@ -1,0 +1,53 @@
+html,
+body,
+#app {
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.crisp-client .cc-tlyw[data-last-operator-face=false] .cc-kxkl .cc-nsge .cc-imbb .cc-11f2[data-is-ongoing=false] .cc-15e7 {
+    background-image: url(../image/msg.png) !important;
+    width: 47px !important;
+    height: 40px !important;
+    top: 13px !important;
+    left: 7px !important;
+}
+
+.button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    /* Add any other styles as needed */
+}
+
+.ant-table-cell {
+    text-align: center;
+}
+
+.ant-table-thead>tr>.ant-table-cell {
+    text-align: center !important;
+}
+
+.odd {
+    background-color: #f0f6ff;
+}
+
+.even {
+    background-color: rgba(250, 250, 250, 1);
+}
+
+.ant-pagination-next,
+.ant-pagination-prev {
+    display: none !important;
+}
