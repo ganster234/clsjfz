@@ -54,7 +54,8 @@ export default function Project() {
       list.forEach((element, i) => {
         element.data.forEach((item, index) => {
           element["key"] = i;
-          element["distribution_price" + index] = item.distribution_price;
+          element["distribution_price" + +(index + 1)] =
+            item.distribution_price;
         });
       });
       setTotal(data?.total);
@@ -93,17 +94,19 @@ export default function Project() {
   const inputDetailBlur = async (index, str) => {
     const { id, data } = projectDetails;
     const item = data[index];
+    console.log(item, projectDetails);
     if (str) {
       if (item) {
         setPopupLoading(true);
         let result = await getChangePrice({
-          price_id: id,
+          price_id: projectDetails.app_id,
           package_id: item.id,
           price: item.distribution_price,
         });
         message.destroy();
         if (result?.code === 200) {
           message.success("修改成功");
+          getList();
         } else {
           message.error(result?.msg || "");
         }
@@ -154,7 +157,7 @@ export default function Project() {
               <Table
                 rowClassName={(record, i) => (i % 2 === 1 ? "even" : "odd")} // 重点是这个api
                 scroll={{
-                  x: 1600,
+                  x: 770,
                   y: height,
                 }}
                 rowKey={(record) => record.id}

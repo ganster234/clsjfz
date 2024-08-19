@@ -2,15 +2,7 @@
 import axios from "axios";
 import { message } from 'antd'
 // 默认地址
-// const baseURL = "https://api.jon562.com/v1/";//喜猫线上地址
-// const baseURL = "https://api.wm611.com/v1/"; //蓝鲸线上地址
-// const baseURL = "https://api.dm722.com/v1/"; //大白鲨线上/地址
-
-// const baseURL = "https://api.afei567.com/v1/";//胖虎地址
-// const baseURL = "https://api.afei567.com/v1/";//胖虎地址
-
-// const baseURL = 'http://192.168.1.59/v1/'  //磁力聚星本地
-const baseURL = 'https://api.xy0312.com/v1/'  //磁力聚星IP
+const baseURL = "http://192.168.1.59/v1/";  //磁力聚星IP
 //post请求头的设置
 axios.defaults.headers.post["Content-Type"] =
     "application/json;charset=UTF-8";

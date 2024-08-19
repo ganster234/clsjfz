@@ -183,21 +183,21 @@ export default function AppProvider({ children }) {
       label: "充值记录",
       grade: "grade", //不需要显示在menu里面的页面
     },
-    // {
-    //   key: "/mobile/project",
-    //   icon: require("../assets/image/sliderMenu/project.png"),
-    //   element: lazyLoad(lazy(() => import("../view/project/Project.jsx"))),
-    //   label: "QQ项目管理",
-    //   roles: ["superAdmin"],
-    //   grade: "grade", //不需要显示在menu里面的页面
-    // },
-    // {
-    //   key: "/mobile/project/wx",
-    //   element: lazyLoad(lazy(() => import("../view/project/ProjectWx.jsx"))),
-    //   label: "WX项目管理",
-    //   roles: ["superAdmin"],
-    //   grade: "grade", //不需要显示在menu里面的页面
-    // },
+    {
+      key: "/mobile/project",
+      icon: require("../assets/image/sliderMenu/project.png"),
+      element: lazyLoad(lazy(() => import("../view/project/Project.jsx"))),
+      label: "QQ项目管理",
+      roles: ["superAdmin"],
+      grade: "grade", //不需要显示在menu里面的页面
+    },
+    {
+      key: "/mobile/project/wx",
+      element: lazyLoad(lazy(() => import("../view/project/ProjectWx.jsx"))),
+      label: "WX项目管理",
+      roles: ["superAdmin"],
+      grade: "grade", //不需要显示在menu里面的页面
+    },
     {
       key: "/mobile/group",
       icon: require("../assets/image/sliderMenu/group.png"),

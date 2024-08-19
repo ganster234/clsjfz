@@ -390,10 +390,10 @@ export const projectColumns = [
     width: 200,
     dataIndex: "app_name",
   },
-  {
-    title: "日卡老号",
-    dataIndex: "distribution_price0",
-  },
+  // {
+  //   title: "日卡老号",
+  //   dataIndex: "distribution_price0",
+  // },
   {
     title: "日卡新号",
     dataIndex: "distribution_price1",
@@ -410,30 +410,30 @@ export const projectColumns = [
   //   title: "信用分300",
   //   dataIndex: "distribution_price4",
   // },
-  {
-    title: "30天回归",
-    dataIndex: "distribution_price4",
-  },
-  {
-    title: "CK",
-    dataIndex: "distribution_price5",
-  },
-  {
-    title: "open",
-    dataIndex: "distribution_price6",
-  },
-  {
-    title: "15级号",
-    dataIndex: "distribution_price7",
-  },
-  {
-    title: "21级号",
-    dataIndex: "distribution_price8",
-  },
-  {
-    title: "15W豆",
-    dataIndex: "distribution_price9",
-  },
+  // {
+  //   title: "30天回归",
+  //   dataIndex: "distribution_price4",
+  // },
+  // {
+  //   title: "CK",
+  //   dataIndex: "distribution_price5",
+  // },
+  // {
+  //   title: "open",
+  //   dataIndex: "distribution_price6",
+  // },
+  // {
+  //   title: "15级号",
+  //   dataIndex: "distribution_price7",
+  // },
+  // {
+  //   title: "21级号",
+  //   dataIndex: "distribution_price8",
+  // },
+  // {
+  //   title: "15W豆",
+  //   dataIndex: "distribution_price9",
+  // },
 ];
 
 export const groupColumns = [
