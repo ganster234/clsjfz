@@ -4,6 +4,7 @@ import { message, Input, Modal, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 import useAppStore from "../../store";
 import { SearchOutlined } from "@ant-design/icons";
+import { useLocation } from "react-router-dom";
 
 import { getThaliList } from "../../api/thali";
 import LayoutPanel from "../../components/layoutPanel/LayoutPanel";
@@ -13,6 +14,7 @@ import "./Thali.less";
 
 // 套餐
 export default function Thali() {
+  const location = useLocation();
   const [thaliList, setThaliList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [thaliAddModal, setThaliAddModal] = useState(false);
@@ -20,15 +22,22 @@ export default function Thali() {
   const setThaliInfo = useAppStore((state) => state.setState);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   if (thaliList && thaliList.length <= 0) {
+  //     getList();
+  //   }
+  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (thaliList && thaliList.length <= 0) {
-      getList();
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    const whetherAPP =
+      location.pathname === "/mobile/wethali"
+        ? { is_web: 1, is_app: 0 }
+        : { is_web: 0, is_app: 1 };
+    getList(whetherAPP);
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const getList = async () => {
+  const getList = async (val) => {
     setThaliLoading(true);
-    let result = await getThaliList({ is_qq: 2 });
+    let result = await getThaliList({ is_qq: 2, ...val });
     const { code, data, msg } = result || {};
     message.destroy();
     if (code === 200) {

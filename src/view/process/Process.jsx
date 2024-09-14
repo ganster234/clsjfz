@@ -60,8 +60,8 @@ export default function Process() {
     });
     const { code, msg, data } = result || {};
     if (code === 200) {
-      setDataList([...data?.data]);
-      setTotal(data?.total);
+      setDataList([...data?.data.data]);
+      setTotal(data?.data.total);
     } else {
       message.destroy();
       message.error(msg);
@@ -135,7 +135,7 @@ export default function Process() {
                   onClick={() => navigate(-1)}
                 />
               </span>
-              USDT管理
+              U记录
             </div>
             <div className="process-top-screen">
               <span
@@ -155,11 +155,11 @@ export default function Process() {
         content={
           <div className="process-content">
             <div className="process-content-main">
-              <div className="process-main-title">USDT管理</div>
+              <div className="process-main-title">U记录</div>
               <Table
                 rowClassName={(record, i) => (i % 2 === 1 ? "even" : "odd")} // 重点是这个api
                 scroll={{
-                  x: 1000,
+                  x: 500,
                   y: height,
                 }}
                 rowKey={(record) => record.id}
@@ -186,39 +186,39 @@ export default function Process() {
                       </div>
                     ),
                   },
-                  {
-                    title: "操作",
-                    width: 200,
-                    render: (record) => (
-                      <div className="process-record-status">
-                        {record.status === 0 && (
-                          <>
-                            <Popconfirm
-                              title="提示"
-                              description="确认要通过吗?"
-                              onConfirm={() => agreeWithRefuse(record, "with")}
-                              okText="通过"
-                              cancelText="取消"
-                            >
-                              <span className="process-agree-with">
-                                确定到账
-                              </span>
-                            </Popconfirm>
-                            <Popconfirm
-                              title="提示"
-                              description="确认要拒绝吗?"
-                              onConfirm={() => agreeWithRefuse(record)}
-                              okText="拒绝"
-                              cancelText="取消"
-                            >
-                              <span className="process-refuse">拒绝</span>
-                            </Popconfirm>
-                          </>
-                        )}
-                        {record.status !== 0 && "--"}
-                      </div>
-                    ),
-                  },
+                  // {
+                  //   title: "操作",
+                  //   width: 200,
+                  //   render: (record) => (
+                  //     <div className="process-record-status">
+                  //       {record.status === 0 && (
+                  //         <>
+                  //           <Popconfirm
+                  //             title="提示"
+                  //             description="确认要通过吗?"
+                  //             onConfirm={() => agreeWithRefuse(record, "with")}
+                  //             okText="通过"
+                  //             cancelText="取消"
+                  //           >
+                  //             <span className="process-agree-with">
+                  //               确定到账
+                  //             </span>
+                  //           </Popconfirm>
+                  //           <Popconfirm
+                  //             title="提示"
+                  //             description="确认要拒绝吗?"
+                  //             onConfirm={() => agreeWithRefuse(record)}
+                  //             okText="拒绝"
+                  //             cancelText="取消"
+                  //           >
+                  //             <span className="process-refuse">拒绝</span>
+                  //           </Popconfirm>
+                  //         </>
+                  //       )}
+                  //       {record.status !== 0 && "--"}
+                  //     </div>
+                  //   ),
+                  // },
                 ]}
                 dataSource={dataList}
               />

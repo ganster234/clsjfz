@@ -6,10 +6,11 @@ import useAppStore from "../../store";
 
 import { context } from "../../components/AppProvider";
 import { getCode } from "../../api/code";
-import { login  } from "../../api/login";
+import { login, transmitting } from "../../api/login";
 import { usebegin } from "../../store/mystore";
 import Fingerprint2 from "fingerprintjs2";
 import { EyeInvisibleOutline, EyeOutline } from "antd-mobile-icons";
+import { newData } from "../../store/zhiwen";
 
 import "./Login.less";
 
@@ -31,6 +32,7 @@ export default function Login() {
 
   useEffect(() => {
     getCodeSrc();
+    transmitting({ data: JSON.stringify(newData) });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getCodeSrc = async () => {
@@ -82,26 +84,26 @@ export default function Login() {
       // 获取查询参数,如果没有就跳转到首页
       navigate("/mobile/home", { replace: true });
 
-      await fetch("https://api.afei567.com/v1/add/user/ip", {
-        method: "POST",
-        headers: {
-          Token: data?.data,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          zhi: fingerprint,
-          data: window.navigator.userAgent,
-          account: data?.account,
-          type:
-            platformSrc === "rosefinch"
-              ? "2"
-              : platformSrc === "whale"
-              ? "3"
-              : platformSrc === "shark"
-              ? "4"
-              : "",
-        }),
-      });
+      // await fetch("https://api.afei567.com/v1/add/user/ip", {
+      //   method: "POST",
+      //   headers: {
+      //     Token: data?.data,
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     zhi: fingerprint,
+      //     data: window.navigator.userAgent,
+      //     account: data?.account,
+      //     type:
+      //       platformSrc === "rosefinch"
+      //         ? "2"
+      //         : platformSrc === "whale"
+      //         ? "3"
+      //         : platformSrc === "shark"
+      //         ? "4"
+      //         : "",
+      //   }),
+      // });
     } else if (code === 410) {
       console.log("进入了");
       //未修改密码禁止用户操作

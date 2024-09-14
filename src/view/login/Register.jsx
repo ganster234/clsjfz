@@ -60,12 +60,12 @@ export default function Register() {
     if (!code) {
       return message.error("请输入验证码");
     }
-    if (!regex.test(password)) {
-      return message.error("密码至少10位，且必须包含大小写字母");
+    // if (!regex.test(password)) {
+    //   return message.error("密码至少10位，且必须包含大小写字母");
+    // }
+    if (!state.invitation_code) {
+      return message.error("请输入邀请码");
     } else {
-      // if (!invitation_code) {
-      //   return message.error("请输入邀请码");
-      // }
       setLoginLoading(true);
       let result = await register({ ...state, checkToken: checkToken });
       const { msg } = result || {};

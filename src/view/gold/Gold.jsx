@@ -75,7 +75,7 @@ export default function Gold() {
               ? "wCHaPay"
               : item.pay_type === "alipay"
               ? "wexin"
-              : item.pay_type === "USTD"
+              : item.pay_type === "usdt"
               ? "ustd"
               : item.pay_type,
           ...item,
@@ -183,9 +183,9 @@ export default function Gold() {
     if (!Topupaccount) {
       return message.error("请输入充U账户");
     }
-    if (Topupaccount.length < 20 || Topupaccount.length > 60) {
-      return message.error("充U账户输入范围20-60字符之间");
-    }
+    // if (Topupaccount.length < 20 || Topupaccount.length > 60) {
+    //   return message.error("充U账户输入范围20-60字符之间");
+    // }
     setGoldLoading(true);
     let result = await getPayUsdt({
       price: activeMoney,
@@ -338,9 +338,7 @@ export default function Gold() {
             }}
           >
             <NoticeBar
-              content={`若充值出现任何问题可联系客服处理 ------${
-                customer.phone + customer.telegram
-              }`}
+              content={`若充值出现任何问题可联系客服处理 ------${customer.telegram}`}
               color="alert"
             />
             {rechargeStatus === "noPay" && (
@@ -438,14 +436,16 @@ export default function Gold() {
                         <div className="gold-collection-account">
                           <div className="gold-collection-title">收U账户：</div>
                           <div style={{ width: "76%", wordWrap: "break-word" }}>
-                            {/* {userInfo?.wallet} */}
-                            {Topupaccount.length > 20
+                            {userInfo?.wallet}
+                            {/* {Topupaccount.length > 20
                               ? userInfo?.wallet
-                              : "请输入正确打U账户与选择充U金额"}
+                              : "请输入正确打U账户与选择充U金额"} */}
                           </div>
                         </div>
                         <div className="gold-collection-account">
-                          <div className="gold-collection-title">打U账户：</div>
+                          <div className="gold-collection-title">
+                            交易单号：
+                          </div>
                           <div
                             style={{
                               borderBottom: " 1px solid #e5e5e6",
@@ -579,8 +579,14 @@ export default function Gold() {
                     >
                       充值记录
                     </div>
+                    <div
+                      className="gold-record"
+                      onClick={() => navigate("/mobile/usdt")}
+                    >
+                      充U记录
+                    </div>
                     <div className="gold-regard">
-                      注：充值金额只能用于胖虎消费。
+                      注：充值金额只能用于平台消费。
                     </div>
                   </div>
                 </Spin>

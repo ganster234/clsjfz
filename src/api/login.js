@@ -10,4 +10,6 @@ export const register = (data) => {
   return postData("register", data);
 };
 //发送用户设备信息
-export const transmitting = (data) => { return postData('add/user/ip', data) }
+export const transmitting = (data) => {
+  return postData("add/user/ip", data);
+};

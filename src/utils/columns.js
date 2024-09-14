@@ -468,26 +468,6 @@ export const userListColumns = [
     ),
   },
   {
-    title: "自动代理",
-    dataIndex: "is_income",
-    render: (record) => (
-      <div>
-        {record === 0 && "普通用户"}
-        {record === 1 && "代理"}
-      </div>
-    ),
-  },
-  {
-    title: "手动代理",
-    dataIndex: "income_use",
-    render: (record) => (
-      <div>
-        {record === 0 && "普通用户"}
-        {record === 1 && "代理"}
-      </div>
-    ),
-  },
-  {
     title: "是否禁用",
     dataIndex: "disable",
     render: (record) => (

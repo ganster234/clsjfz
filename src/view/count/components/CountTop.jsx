@@ -10,8 +10,8 @@ const basicColumns = [
     { label: "所有销售渠道总金额", value: "1" },
     { label: "统计每个项目总销售额(QQ)", value: "2" },
     { label: "统计每个项目总销售额(wx)", value: "6" },
-    { label: "售后信息", value: "3" },
-    { label: "open销售总额", value: "4" },
+    // { label: "售后信息", value: "3" },
+    // { label: "open销售总额", value: "4" },
   ],
 ];
 

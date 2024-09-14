@@ -23,18 +23,18 @@ export default function MenuPopup({ menuChange }) {
       path: "/mobile/notice",
       roles: ["admin", "superAdmin"],
     },
-    {
-      title: "QQ项目管理",
-      icon: require("../../../assets/image/home/menu/qq-project-manage.png"),
-      path: "/mobile/project",
-      roles: ["admin", "superAdmin"],
-    },
-    {
-      title: "WX项目管理",
-      icon: require("../../../assets/image/home/menu/wx-project-manage.png"),
-      path: "/mobile/project/wx",
-      roles: ["admin", "superAdmin"],
-    },
+    // {
+    //   title: "QQ项目管理",
+    //   icon: require("../../../assets/image/home/menu/qq-project-manage.png"),
+    //   path: "/mobile/project",
+    //   roles: ["admin", "superAdmin"],
+    // },
+    // {
+    //   title: "WX项目管理",
+    //   icon: require("../../../assets/image/home/menu/wx-project-manage.png"),
+    //   path: "/mobile/project/wx",
+    //   roles: ["admin", "superAdmin"],
+    // },
     {
       icon: require("../../../assets/image/home/menu/change-password.png"),
       title: "修改密码",
@@ -117,10 +117,10 @@ export default function MenuPopup({ menuChange }) {
       </div>
       <div className="sign-service">
         <div className="menu-service-box">
-          <div>{service.phone}</div>
+          <div>{service.telegram}</div>
           {/* <div>{service.skype}</div> */}
           {/* <div>{service.telegram}</div> */}
-          <div>{service.time}</div>
+          <div>{service.telegram_remark}</div>
         </div>
         <div className="exit-sign">
           <img

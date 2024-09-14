@@ -18,7 +18,7 @@ export default function ThaliConfig() {
   const thaliInfo = useAppStore((state) => state.thaliInfo); //套餐详情
   // const userInfo = useAppStore((state) => state.userInfo); //套餐详情
 
-  const [scanOpenShow, setScanOpenShow] = useState("1");
+  const [scanOpenShow, setScanOpenShow] = useState("2");
 
   const [configLpading, setConfigLoading] = useState(false); //加载
   const [weeklyCardShow, setWeeklyCardShow] = useState(false); //选中周卡的15级号
@@ -368,7 +368,11 @@ export default function ThaliConfig() {
                     }}
                     value={scanOpenShow}
                   >
-                    <Radio value={"1"}>扫码</Radio>
+                    {state?.thaliData?.is_scan ? (
+                      <Radio value={"1"}>扫码</Radio>
+                    ) : (
+                      <></>
+                    )}
                     <Radio value={"2"}>小程序</Radio>
                   </Radio.Group>
                 </div>

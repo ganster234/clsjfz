@@ -8,12 +8,14 @@ import useAppStore from "../../store";
 import LayoutPanel from "../../components/layoutPanel/LayoutPanel";
 import ThaliConfigTop from "./components/ThaliConfigTop";
 import { getPackDetail, getPlaceOrder } from "../../api/thali";
+import { setAddOpen } from "../../api/open";
 
 import "./ThaliConfig.less";
 
 // 在改图
 export default function ThaliConfig() {
   //   const navigate = useNavigate();
+  const [scanOpenShow, setScanOpenShow] = useState(true); //选中open还是扫码账号
   const setThaliInfo = useAppStore((state) => state.setState); //设置套餐详情
   const thaliInfo = useAppStore((state) => state.thaliInfo); //套餐详情
   // const userInfo = useAppStore((state) => state.userInfo); //套餐详情
@@ -272,26 +274,43 @@ export default function ThaliConfig() {
       param.weeklyCardShow = 1;
     }
     setConfigLoading(true);
-    let result = await getPlaceOrder(param);
-    if (result?.code === 200) {
-      message.success("支付成功");
-      setState((item) => ({
-        ...item,
-        basicShow: false, //显示picker
-        activeThali: [], //选中的日卡周卡
-        packageNum: 0, //套餐数量
-        insureShow: false,
-        insureValue: [true], //是否购买保险true-购买，flase-不购买
-        insureNum: 0, //保险份数,最大份数是3
-        insureColumns: [
-          [
-            { label: "购买", value: true },
-            { label: "不购买", value: false },
-          ],
-        ],
-      }));
+    if (scanOpenShow) {
+      //open下单
+      let result = await setAddOpen({
+        price_id: thaliDetail?.id + "", //项目id
+        package_id: activeThali[0] + "", //套餐id
+        is_op: "1",
+        name: state?.thaliDetail && state?.thaliDetail?.app_name,
+        num: packageNum + "",
+        is_fifteen: "-1",
+      });
+      if (result?.code === 200) {
+        message.success("支付成功");
+      } else {
+        message.error(result?.msg || "支付失败请稍后再试");
+      }
     } else {
-      message.error(result?.msg || "支付失败请稍后再试");
+      let result = await getPlaceOrder(param);
+      if (result?.code === 200) {
+        message.success("支付成功");
+        setState((item) => ({
+          ...item,
+          basicShow: false, //显示picker
+          activeThali: [], //选中的日卡周卡
+          packageNum: 0, //套餐数量
+          insureShow: false,
+          insureValue: [true], //是否购买保险true-购买，flase-不购买
+          insureNum: 0, //保险份数,最大份数是3
+          insureColumns: [
+            [
+              { label: "购买", value: true },
+              { label: "不购买", value: false },
+            ],
+          ],
+        }));
+      } else {
+        message.error(result?.msg || "支付失败请稍后再试");
+      }
     }
     setConfigLoading(false);
   };
@@ -344,6 +363,29 @@ export default function ThaliConfig() {
 
               <div className="thail-package-all-item">
                 <div className="package-detail-title">套餐详情：</div>
+              </div>
+              <div className="thail-package-all-item">
+                <div className="package-item-left">等级：</div>
+                <div
+                  className="package-item-right"
+                  style={{
+                    color: "#212121",
+                  }}
+                >
+                  <Radio.Group
+                    onChange={(even) => {
+                      setScanOpenShow(even.target.value);
+                    }}
+                    value={scanOpenShow}
+                  >
+                    <Radio value={true}>open</Radio>
+                    {state?.thaliData?.is_scan === 1 ? (
+                      <Radio value={false}>扫码</Radio>
+                    ) : (
+                      <></>
+                    )}
+                  </Radio.Group>
+                </div>
               </div>
               {thaliInfo.id === 317 && (
                 <div className="thail-package-all-item">

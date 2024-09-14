@@ -68,12 +68,12 @@ export default function AppProvider({ children }) {
       label: "首页",
       grade: "grade", //不需要显示在menu里面的页面
     },
-    {
-      key: "/mobile/videofrequency",
-      icon: require("../assets/image/sliderMenu/download.png"),
-      element: lazyLoad(lazy(() => import("../view/videos"))),
-      label: "视频教程",
-    },
+    // {
+    //   key: "/mobile/videofrequency",
+    //   icon: require("../assets/image/sliderMenu/download.png"),
+    //   element: lazyLoad(lazy(() => import("../view/videos"))),
+    //   label: "视频教程",
+    // },
     {
       key: "/mobile/demand",
       // icon: require("../assets/image/sidermenu/home.png"),
@@ -121,12 +121,24 @@ export default function AppProvider({ children }) {
     // },
     {
       key: "/mobile/thali", //QQ套餐
-      icon: require("../assets/image/sliderMenu/qq-thali.png"),
+      icon: require("../assets/image/sliderMenu/web_h5.png"),
       element: lazyLoad(lazy(() => import("../view/thali/Thali.jsx"))),
-      label: "QQ套餐",
+      label: "网页Q",
     },
     {
-      key: "/mobile/wethali", //微信套餐
+      key: "/mobile/app", //QQ套餐
+      icon: require("../assets/image/sliderMenu/qq-thali.png"),
+      element: lazyLoad(lazy(() => import("../view/thali/Thali.jsx"))),
+      label: "APPQ",
+    },
+    {
+      key: "/mobile/wethali", //QQ套餐
+      icon: require("../assets/image/sliderMenu/web_h5.png"),
+      element: lazyLoad(lazy(() => import("../view/thali/WxThali.jsx"))),
+      label: "网页W",
+    },
+    {
+      key: "/mobile/wapp", //微信套餐
       icon: require("../assets/image/sliderMenu/wx-thali.png"),
       element: lazyLoad(lazy(() => import("../view/thali/WxThali.jsx"))),
       label: "WX套餐",
@@ -245,6 +257,12 @@ export default function AppProvider({ children }) {
       element: lazyLoad(lazy(() => import("../view/payadministration"))),
       label: "支付管理",
       roles: ["admin", "superAdmin"],
+    },
+    {
+      key: "/mobile/usdt",
+      icon: require("../assets/image/sliderMenu/payment.png"),
+      element: lazyLoad(lazy(() => import("../view/process/Process.jsx"))),
+      label: "U记录",
     },
   ];
   let defaultMenus = [];

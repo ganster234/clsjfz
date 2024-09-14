@@ -180,7 +180,7 @@ export default function UserList() {
                 <Table
                   rowClassName={(record, i) => (i % 2 === 1 ? "even" : "odd")} // 重点是这个api
                   scroll={{
-                    x: 1230,
+                    x: 1030,
                     y: height,
                   }}
                   rowKey={(record) => record.id}
@@ -246,17 +246,6 @@ export default function UserList() {
                                         </Button>
                                       </Popconfirm>
                                     )}
-                                    <Button
-                                      size="small"
-                                      type="primary"
-                                      style={{ marginRight: "10px" }}
-                                      onClick={() => {
-                                        setMoneyItem({ ...record });
-                                        setMoneyShow(true);
-                                      }}
-                                    >
-                                      修改余额
-                                    </Button>
                                   </>
                                 )}
 
@@ -283,6 +272,17 @@ export default function UserList() {
                                     启用
                                   </Button>
                                 )}
+                                {/* <Button
+                                  size="small"
+                                  type="primary"
+                                  style={{ marginRight: "10px" }}
+                                  onClick={() => {
+                                    setMoneyItem({ ...record });
+                                    setMoneyShow(true);
+                                  }}
+                                >
+                                  修改余额
+                                </Button> */}
                                 <Popconfirm
                                   title="提示"
                                   description="当前操作将重置用户密码是否继续？"

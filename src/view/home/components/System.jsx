@@ -8,6 +8,7 @@ import "./System.less";
 export default function System() {
   const [downloadDetail, setDownloadDetail] = useState({});
   const setService = useAppStore((state) => state.setState);
+  const url = JSON.parse(sessionStorage.getItem("globalState"));
   useEffect(() => {
     //获取登陆器
     const getDetail = async () => {
@@ -39,12 +40,47 @@ export default function System() {
           alt=""
           className="system-item-icon"
         />
-        <span className="system-item-title">Telegram/Skype教程</span>
-        <span className="system-obtain" onClick={() => downloadView()}>
-          获取
+        <span className="system-item-title">上号器</span>
+        <span
+          className="system-obtain"
+          onClick={() => {
+            window.open(url?.state?.service?.apk_download);
+          }}
+        >
+          下载
         </span>
       </div>
       <div className="system-item system-item-bottom">
+        <img
+          src={require("../../../assets/image/home/system/skype.png")}
+          alt=""
+          className="system-item-icon"
+        />
+        <span className="system-item-title">PC上号器</span>
+        <span
+          className="system-obtain"
+          onClick={() => {
+            window.open(url?.state?.service?.pc_download);
+          }}
+        >
+          下载
+        </span>
+      </div>
+      <div className="system-item system-item-bottom">
+        <img
+          src={require("../../../assets/image/home/system/skype.png")}
+          alt=""
+          className="system-item-icon"
+        />
+        <span className="system-item-title">视频教程</span>
+        <span
+          className="system-obtain"
+          onClick={() => window.open(url?.state?.service?.video_addr)}
+        >
+          查看
+        </span>
+      </div>
+      {/* <div className="system-item system-item-bottom">
         <img
           src={require("../../../assets/image/home/system/logon.png")}
           alt=""
@@ -130,7 +166,7 @@ export default function System() {
         <span className="system-obtain" onClick={() => homeDownload("file")}>
           获取
         </span>
-      </div>
+      </div> */}
     </div>
   );
 }

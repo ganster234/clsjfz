@@ -122,7 +122,7 @@ export default function CreatePopup({ closePopup }) {
       return;
     }
     setCreateOpenLoading(true);
-    let result = await setAddOpen({ ...parma });
+    let result = await setAddOpen({ ...parma, package_id: 10006 });
     const { code, msg } = result || {};
     if (code === 200) {
       setState((item) => ({ ...item, activeProject: [], num: 0 }));

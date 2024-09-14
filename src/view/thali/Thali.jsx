@@ -4,6 +4,7 @@ import { message, Input, Modal, Spin, Radio } from "antd";
 import { useNavigate } from "react-router-dom";
 import useAppStore from "../../store";
 import { SearchOutlined } from "@ant-design/icons";
+import { useLocation } from "react-router-dom";
 
 import { getThaliList } from "../../api/thali";
 import LayoutPanel from "../../components/layoutPanel/LayoutPanel";
@@ -13,6 +14,7 @@ import "./Thali.less";
 
 // 套餐
 export default function Thali(props) {
+  const location = useLocation();
   const [is_qq, setIs_qq] = useState(3); //联合项目类型
 
   const [thaliList, setThaliList] = useState([]);
@@ -24,13 +26,22 @@ export default function Thali(props) {
 
   useEffect(() => {
     if (thaliList) {
-      getList();
+      // getList();
+      console.log(location.pathname, "location.pathname");
+      const whetherAPP =
+        location.pathname === "/mobile/thali"
+          ? { is_web: 1, is_app: 0 }
+          : { is_web: 0, is_app: 1 };
+      getList(whetherAPP);
     }
-  }, [is_qq]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [location, is_qq]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const getList = async () => {
+  const getList = async (val) => {
     setThaliLoading(true);
-    let result = await getThaliList({ is_qq: props.is_qq ? is_qq : undefined });
+    let result = await getThaliList({
+      is_qq: props.is_qq ? is_qq : undefined,
+      ...val,
+    });
     const { code, data, msg } = result || {};
     message.destroy();
     if (code === 200) {
