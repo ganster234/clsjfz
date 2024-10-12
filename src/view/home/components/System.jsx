@@ -34,139 +34,107 @@ export default function System() {
   return (
     <div className="system">
       <div className="system-title">系统下载</div>
-      <div className="system-item system-item-bottom">
-        <img
-          src={require("../../../assets/image/home/system/skype.png")}
-          alt=""
-          className="system-item-icon"
-        />
-        <span className="system-item-title">上号器</span>
-        <span
-          className="system-obtain"
-          onClick={() => {
-            window.open(url?.state?.service?.apk_download);
-          }}
-        >
-          下载
-        </span>
-      </div>
-      <div className="system-item system-item-bottom">
-        <img
-          src={require("../../../assets/image/home/system/skype.png")}
-          alt=""
-          className="system-item-icon"
-        />
-        <span className="system-item-title">PC上号器</span>
-        <span
-          className="system-obtain"
-          onClick={() => {
-            window.open(url?.state?.service?.pc_download);
-          }}
-        >
-          下载
-        </span>
-      </div>
-      <div className="system-item system-item-bottom">
-        <img
-          src={require("../../../assets/image/home/system/skype.png")}
-          alt=""
-          className="system-item-icon"
-        />
-        <span className="system-item-title">视频教程</span>
-        <span
-          className="system-obtain"
-          onClick={() => window.open(url?.state?.service?.video_addr)}
-        >
-          查看
-        </span>
-      </div>
-      {/* <div className="system-item system-item-bottom">
-        <img
-          src={require("../../../assets/image/home/system/logon.png")}
-          alt=""
-          className="system-item-icon"
-        />
-        <span className="system-item-title">新版OP登录器</span>
-        <span
-          className="system-obtain"
-          onClick={() => homeDownload("download_url")}
-        >
-          获取
-        </span>
-      </div>
-      <div className="system-item system-item-bottom">
-        <img
-          src={require("../../../assets/image/home/system/android-app.png")}
-          alt=""
-          className="system-item-icon"
-        />
-        <span className="system-item-title">新版安卓APP下载</span>
-        <span className="system-obtain" onClick={() => homeDownload("apk")}>
-          获取
-        </span>
-      </div>
-      <div className="system-item system-item-bottom">
-        <img
-          src={require("../../../assets/image/home/system/android-app.png")}
-          alt=""
-          className="system-item-icon"
-        />
-        <span className="system-item-title">
-          网页登录器下载(非专属项目无需下载)
-        </span>
-        <span
-          className="system-obtain"
-          onClick={() => {
-            window.open("https://pan.quark.cn/s/c324aef02a8e#/list/share");
-          }}
-        >
-          获取
-        </span>
-      </div>
-      <div
-        style={{ borderBottom: "1px solid #eeeeee " }}
-        className="system-item"
-      >
-        <img
-          src={require("../../../assets/image/home/system/pc.png")}
-          alt=""
-          className="system-item-icon"
-        />
-        <span className="system-item-title">新版PC扫码</span>
-        <span className="system-obtain" onClick={() => homeDownload("exe")}>
-          获取
-        </span>
-      </div>
-      <div
-        style={{ borderBottom: "1px solid #eeeeee " }}
-        className="system-item"
-      >
-        <img
-          src={require("../../../assets/image/home/system/pc.png")}
-          alt=""
-          className="system-item-icon"
-        />
-        <span className="system-item-title">微信快手使用（用于xposed）</span>
-        <span
-          className="system-obtain"
-          onClick={() => {
-            window.open("https://pan.quark.cn/s/ed1d692aedd6#/list/share");
-          }}
-        >
-          获取
-        </span>
-      </div>
-      <div className="system-item">
-        <img
-          src={require("../../../assets/image/home/system/pc.png")}
-          alt=""
-          className="system-item-icon"
-        />
-        <span className="system-item-title">API下载使用与教程</span>
-        <span className="system-obtain" onClick={() => homeDownload("file")}>
-          获取
-        </span>
-      </div> */}
+      {url?.state?.service?.apk_download && (
+        <div className="system-item system-item-bottom">
+          <img
+            src={require("../../../assets/image/home/system/skype.png")}
+            alt=""
+            className="system-item-icon"
+          />
+          <span className="system-item-title">上号器</span>
+          <span
+            className="system-obtain"
+            onClick={() => {
+              window.open(url?.state?.service?.apk_download);
+            }}
+          >
+            下载
+          </span>
+        </div>
+      )}
+      {url?.state?.service?.pc_download && (
+        <div className="system-item system-item-bottom">
+          <img
+            src={require("../../../assets/image/home/system/skype.png")}
+            alt=""
+            className="system-item-icon"
+          />
+          <span className="system-item-title">PC上号器</span>
+          <span
+            className="system-obtain"
+            onClick={() => {
+              window.open(url?.state?.service?.pc_download);
+            }}
+          >
+            下载
+          </span>
+        </div>
+      )}
+      {url?.state?.service?.video_addr && (
+        <div className="system-item system-item-bottom">
+          <img
+            src={require("../../../assets/image/home/system/skype.png")}
+            alt=""
+            className="system-item-icon"
+          />
+          <span className="system-item-title">视频教程</span>
+          <span
+            className="system-obtain"
+            onClick={() => window.open(url?.state?.service?.video_addr)}
+          >
+            查看
+          </span>
+        </div>
+      )}
+
+      {url?.state?.service?.document_addr && (
+        <div className="system-item system-item-bottom">
+          <img
+            src={require("../../../assets/image/home/system/skype.png")}
+            alt=""
+            className="system-item-icon"
+          />
+          <span className="system-item-title">文档地址</span>
+          <span
+            className="system-obtain"
+            onClick={() => window.open(url?.state?.service?.document_addr)}
+          >
+            查看
+          </span>
+        </div>
+      )}
+      {url?.state?.service?.web_addr && (
+        <div className="system-item system-item-bottom">
+          <img
+            src={require("../../../assets/image/home/system/skype.png")}
+            alt=""
+            className="system-item-icon"
+          />
+          <span className="system-item-title">网页上号地址</span>
+          <span
+            className="system-obtain"
+            onClick={() => window.open(url?.state?.service?.web_addr)}
+          >
+            查看
+          </span>
+        </div>
+      )}
+      {url?.state?.service?.tutorial_document && (
+        <div className="system-item system-item-bottom">
+          <img
+            src={require("../../../assets/image/home/system/skype.png")}
+            alt=""
+            className="system-item-icon"
+          />
+          <span className="system-item-title">教程文档</span>
+          <span
+            className="system-obtain"
+            onClick={() => window.open(url?.state?.service?.tutorial_document)}
+          >
+            查看
+          </span>
+        </div>
+      )}
     </div>
   );
 }

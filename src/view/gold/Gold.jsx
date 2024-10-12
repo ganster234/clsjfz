@@ -313,6 +313,14 @@ export default function Gold() {
       [keyName]: str ? kamiState[keyName] + 1 : kamiState[keyName] - 1,
     }));
   };
+  const filters = (item) => {
+    if (postElection) {
+      const newArr = [...postElection.price_add].filter((el) => {
+        return el.price === item;
+      });
+      return newArr.length > 0 ? newArr[0].add : 0;
+    }
+  };
   return (
     <>
       <LayoutPanel
@@ -461,7 +469,7 @@ export default function Gold() {
                                 "--placeholder-color": "#999999",
                                 "--font-size": "15px",
                               }}
-                              placeholder="请输入充U账户"
+                              placeholder="请输入交易单号"
                               onChange={(even) => setTopupaccount(even)}
                             />
                           </div>
@@ -497,7 +505,7 @@ export default function Gold() {
                                   }}
                                 >
                                   {goldWay === "ustd"
-                                    ? "U"
+                                    ? `充值赠送：${filters(item)}u`
                                     : `当前售价：${item}元`}
                                 </div>
                               </div>
