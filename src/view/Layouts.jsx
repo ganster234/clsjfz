@@ -14,10 +14,11 @@ export default function Layouts({ children }) {
 
   // 获取用户信息
   const getUserInfo = async () => {
-    let result = await getUser();
+    const Userid = sessionStorage.getItem("user");
+    let result = await getUser({ Sid: Userid });
     const { code, data, msg } = result || {};
-    if (code === 200) {
-      setUserInfo(data, "userInfo");
+    if (code) {
+      setUserInfo(data[0], "userInfo");
     } else {
       message.destroy();
       message.error(msg);

@@ -2,7 +2,7 @@ import { postData } from "./index";
 
 //登录
 export const login = (data) => {
-  return postData("login", data);
+  return postData("UserLogin", data);
 };
 
 //注册

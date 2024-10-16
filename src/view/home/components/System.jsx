@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useAppStore from "../../../store";
 
 import { getDownload } from "../../../api/home";
@@ -13,24 +13,14 @@ export default function System() {
     //获取登陆器
     const getDetail = async () => {
       let result = await getDownload();
-      if (result?.code === 200) {
+      if (result?.code) {
         setDownloadDetail({ ...result?.data });
         setService(result?.data, "service");
       }
     };
     getDetail();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const downloadView = () => {
-    const w = window.open("about:blank");
-    w.location.href = "https://cowtransfer.com/s/920637fb46df4b";
-  };
-  //   下载登录器
-  const homeDownload = (str) => {
-    if (downloadDetail[str]) {
-      const w = window.open("about:blank");
-      w.location.href = downloadDetail[str];
-    }
-  };
+
   return (
     <div className="system">
       <div className="system-title">系统下载</div>

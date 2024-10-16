@@ -48,9 +48,6 @@ export default function Register() {
     const { username, password, code } = state;
     const regex = /^(?=.*[a-z])(?=.*[A-Z]).{10,}$/;
     message.destroy();
-    // if(true){  //蓝鲸项目手机端需要PC端注册
-    //   return message.error("---此功能暂时无法注册，请前往PC端完成注册---------------------------------------------");
-    // }
     if (username.length < 6) {
       return message.error("注册账号至少需得6位");
     }

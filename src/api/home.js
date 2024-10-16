@@ -1,19 +1,16 @@
-import { getData } from "./index";
+import {postData } from "./index";
 
 //销售渠道数据统计
 export const getDayStati = (data) => {
-  return getData("index/statis", data);
+  return postData("OussdataGet", data);
 };
 
-//首页柱装图
-export const getDayCount = (data) => {
-  return getData("index/day", data);
-};
+
 export const getIndexDay = (data) => {
-  return getData("index/day", data);
+  return postData("OussListGet", data);
 };
 
 //登录器下载
 export const getDownload = (data) => {
-  return getData("download/url", data);
+  return postData("url", data);
 };

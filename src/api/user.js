@@ -2,7 +2,7 @@ import { getData, postData } from "./index";
 
 //获取用户信息
 export const getUser = (data) => {
-  return getData("userInfo", data);
+  return postData("userInfo", data);
 };
 
 //获取用户列表page第几页,limit一页多少条
@@ -46,7 +46,7 @@ export const getAddPrice = (data) => {
 
 //修改密码
 export const postUpdatePwd = (data) => {
-  return postData("update/password", data);
+  return postData("UserUp", data);
 };
 
 //设置代理 set/income

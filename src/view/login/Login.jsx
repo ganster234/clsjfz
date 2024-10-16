@@ -5,54 +5,28 @@ import { message, Spin } from "antd";
 import useAppStore from "../../store";
 
 import { context } from "../../components/AppProvider";
-import { getCode } from "../../api/code";
-import { login, transmitting } from "../../api/login";
+import { login } from "../../api/login";
 import { usebegin } from "../../store/mystore";
-import Fingerprint2 from "fingerprintjs2";
 import { EyeInvisibleOutline, EyeOutline } from "antd-mobile-icons";
-import { newData } from "../../store/zhiwen";
 
 import "./Login.less";
 
 export default function Login() {
   const takestore = usebegin();
   const navigate = useNavigate();
-  const platformSrc = useAppStore((state) => state.platformSrc);
   const [state, setState] = useState({
     account: "",
     password: "",
-    verifyCode: "",
   });
   const [visible, setVisible] = useState(false); //密码是否可见
   const [loginLoading, setLoginLoading] = useState(false);
-  const [codeSrc, setCodeSrc] = useState("");
-  const [checkToken, setCheckToken] = useState("");
+
   const setRole = useAppStore((state) => state.setState); //用户信息
   const { resetMenus } = useContext(context);
 
-  useEffect(() => {
-    getCodeSrc();
-    transmitting({ data: JSON.stringify(newData) });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const getCodeSrc = async () => {
-    setLoginLoading(true);
-    let result = await getCode();
-    const { code, data } = result || {};
-    if (code === 200) {
-      if (data?.img) {
-        setCodeSrc(data?.img);
-        setCheckToken(data?.key);
-      }
-    } else {
-      message.destroy();
-      message.error(result?.msg || "获取验证码失败");
-    }
-    setLoginLoading(false);
-  };
 
   const loginBtn = async () => {
-    const { account, password, verifyCode } = state;
+    const { account, password, } = state;
     message.destroy();
     if (!account) {
       return message.error("请输入账号");
@@ -60,27 +34,25 @@ export default function Login() {
     if (!password) {
       return message.error("请输入密码");
     }
-    if (!verifyCode) {
-      return message.error("请输入验证码");
-    }
     setLoginLoading(true);
-    let result = await login({ ...state, checkToken: checkToken });
-    const fingerprint = await new Promise((resolve) => {
-      Fingerprint2.get((components) => {
-        const values = components.map((component) => component.value);
-        const fingerprint = Fingerprint2.x64hash128(values.join(""), 31);
-        resolve(fingerprint);
-      });
-    });
+    let result = await login({ User: account, Pass: password });
+    // const fingerprint = await new Promise((resolve) => {
+    //   Fingerprint2.get((components) => {
+    //     const values = components.map((component) => component.value); 
+    //     const fingerprint = Fingerprint2.x64hash128(values.join(""), 31);
+    //     resolve(fingerprint);
+    //   });
+    // });
     const { code, data, msg } = result || {};
-    if (code === 200) {
+    if (code === "200") {
       takestore.setdisclosedBallot(false);
-      sessionStorage.setItem("token", data?.data);
+      sessionStorage.setItem("token", "");
+      sessionStorage.setItem("user", data[0].Device_Sid);
       // 刷新页面导致路由以及丢失menu的关键
-      sessionStorage.setItem("role", data?.roles || "admin");
-      setRole(data?.roles, "role");
+      sessionStorage.setItem("role", data[0].Device_Roles || "role");
+      setRole(data[0].Device_Roles, "role");
       //重置路由菜关键点
-      resetMenus(data?.roles || "admin");
+      resetMenus(data[0].Device_Roles || "role");
       // 获取查询参数,如果没有就跳转到首页
       navigate("/mobile/home", { replace: true });
 
@@ -122,7 +94,6 @@ export default function Login() {
       });
     } else {
       message.error(msg);
-      getCodeSrc();
     }
     setLoginLoading(false);
   };
@@ -136,7 +107,7 @@ export default function Login() {
         <div className="login-title">
           <div className="login-titile-test">
             <div>您好~</div>
-            <div>欢迎登录磁力巨星</div>
+            <div>欢迎登录小飞侠</div>
           </div>
           {/* <img
             src={require("../../assets/image/login/login-title.png")}
@@ -183,7 +154,7 @@ export default function Login() {
                 </div>
               </div>
             </div>
-            <div className="login-form-item">
+            {/* <div className="login-form-item">
               <div className="form-item-title">验证码</div>
               <div className="form-item-input-box">
                 <Input
@@ -204,7 +175,7 @@ export default function Login() {
                   onClick={() => getCodeSrc()}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="main-sign-btn">
             <Button

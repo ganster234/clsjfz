@@ -29,7 +29,7 @@ export default function RecordStat({ channelDetail }) {
             className="record-data-item record-data-item-bottom"
           >
             <div className="record-data-item-data">
-              {channelDetail?.total || "0.00"}
+              {channelDetail?.Device_moneyall || "0.00"}
             </div>
             <div className="record-data-item-title">所有销售额</div>
           </div>
@@ -38,9 +38,9 @@ export default function RecordStat({ channelDetail }) {
             className="record-data-item record-data-item-bottom"
           >
             <div className="record-data-item-data">
-            {channelDetail?.pan_total || "0.00"}
+              {channelDetail?.Device_moneyallold || "0.00"}
             </div>
-            <div className="record-data-item-title">本站总额</div>
+            <div className="record-data-item-title">昨日销售总额</div>
           </div>
 
           <div
@@ -48,7 +48,7 @@ export default function RecordStat({ channelDetail }) {
             className="record-data-item record-data-item-bottom "
           >
             <div className="record-data-item-data">
-              {channelDetail?.add || "0.00"}
+              {channelDetail?.Device_pay || "0.00"}
             </div>
             <div className="record-data-item-title">充值总额</div>
           </div>
@@ -57,7 +57,7 @@ export default function RecordStat({ channelDetail }) {
             className="record-data-item record-data-item-bottom "
           >
             <div className="record-data-item-data">
-            {channelDetail?.after || "0.00"}
+              {channelDetail?.Device_sh || "0.00"}
             </div>
             <div className="record-data-item-title">售后额</div>
           </div>
@@ -69,13 +69,13 @@ export default function RecordStat({ channelDetail }) {
           </div> */}
           <div style={{ marginTop: "15px" }} className="record-data-item">
             <div className="record-data-item-data">
-              {channelDetail?.suc_sao || "0.00"}
+              {channelDetail?.Device_smok || "0.00"}
             </div>
             <div className="record-data-item-title">今日扫码成功数</div>
           </div>
           <div style={{ marginTop: "15px" }} className="record-data-item">
             <div className="record-data-item-data">
-              {channelDetail?.err_sao || "0.00"}
+              {channelDetail?.Device_smno || "0.00"}
             </div>
             <div className="record-data-item-title">今日扫码失败数</div>
           </div>

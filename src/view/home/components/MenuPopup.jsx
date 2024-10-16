@@ -106,7 +106,7 @@ export default function MenuPopup({ menuChange }) {
             alt=""
             className="menu-user-avater"
           />
-          <span>{userInfo?.account}</span>
+          <span>{userInfo?.Device_name}</span>
         </div>
       </div>
       <div className="menu-list">

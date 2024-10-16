@@ -5,7 +5,6 @@ import { Input } from "antd-mobile";
 import useAppStore from "../../store";
 
 import LayoutPanel from "../../components/layoutPanel/LayoutPanel";
-import { getCode } from "../../api/code";
 import { postUpdatePwd } from "../../api/user";
 import { EyeInvisibleOutline, EyeOutline } from "antd-mobile-icons";
 import "./Modify.less";
@@ -14,44 +13,18 @@ export default function Modify() {
   const navigate = useNavigate();
   const userInfo = useAppStore((state) => state.userInfo); //用户信息
   const [loading, setLoading] = useState(false);
-  const [codeSrc, setCodeSrc] = useState("");
   const [visible, setVisible] = useState(false); //密码是否可见
   const [visibletow, setVisibletow] = useState(false); //确认密码是否可见
-  const [checkToken, setCheckToken] = useState("");
+  console.log(userInfo, "userInfouserInfo");
   const [state, setState] = useState({
-    code: "",
     password: "",
     comPwd: "",
   });
-
-  useEffect(() => {
-    (() => {
-      getPwdCode();
-    })();
-  }, []);
-
-  const getPwdCode = async () => {
-    let result = await getCode();
-    const { code, data, msg } = result || {};
-    if (code === 200) {
-      setCodeSrc(data?.img);
-      setCheckToken(data?.key);
-    } else {
-      message.destroy();
-      message.error(msg);
-    }
-  };
-
+  const Userid = sessionStorage.getItem("user");
   const comSubmit = async () => {
     message.destroy();
-    if (!checkToken) {
-      return;
-    }
     if (!userInfo.id) {
       return;
-    }
-    if (!state.code) {
-      return message.error("请输入验证码");
     }
     if (!state.password) {
       return message.error("请输入密码");
@@ -61,18 +34,14 @@ export default function Modify() {
     }
     setLoading(true);
     let result = await postUpdatePwd({
-      ...state,
-      checkToken,
-      user_id: userInfo.id + "",
+      Sid: Userid,
+      Pass: state.password,
+      Oldpass: state.comPwd,
     });
     if (result?.code === 200) {
       // 退出页面去除本地的登录信息
-      localStorage.removeItem("globalState");
-      localStorage.removeItem("token");
-      localStorage.removeItem("role");
-      sessionStorage.removeItem("globalState");
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("role");
+      localStorage.clear();
+      sessionStorage.clear();
       await navigate("/");
       alert("修改成功");
     } else {
@@ -99,35 +68,13 @@ export default function Modify() {
             <div className="modify-content-item">
               <span className="modify-content-item-title">用户名</span>
               <Input
-                placeholder="请输入内容"
-                value={userInfo?.account}
+                value={userInfo?.Device_name}
                 disabled
                 style={{
                   flex: 1,
                   "--font-size": "14px",
                   "--placeholder-color": "#BFBFBF",
                 }}
-              />
-            </div>
-            <div className="modify-content-item">
-              <span className="modify-content-item-title">验证码</span>
-              <Input
-                value={state?.code}
-                placeholder="请输入验证码"
-                style={{
-                  flex: 1,
-                  "--font-size": "14px",
-                  "--placeholder-color": "#BFBFBF",
-                }}
-                onChange={(even) => {
-                  setState((item) => ({ ...item, code: even }));
-                }}
-              />
-              <img
-                src={codeSrc}
-                alt=""
-                onClick={() => getPwdCode()}
-                style={{ width: "120px", height: "36px", borderRadius: "4px" }}
               />
             </div>
             <div className="modify-content-item">
