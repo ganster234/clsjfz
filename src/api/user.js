@@ -7,7 +7,7 @@ export const getUser = (data) => {
 
 //获取用户列表page第几页,limit一页多少条
 export const getUserList = (data) => {
-  return getData("user/list", data);
+  return postData("OuUserGet", data);
 };
 
 //重置用户密码
@@ -54,8 +54,11 @@ export const setIncome = (data) => {
   return postData("set/income", data);
 };
 //获取设备信息
-export const facility = (data) => { return getData('get/user/list', data) }
-
+export const facility = (data) => {
+  return getData("get/user/list", data);
+};
 
 //获取账号状态数据
-export const getaccounttable = (data) => { return getData('get/order/detail', data) }
+export const getaccounttable = (data) => {
+  return getData("get/order/detail", data);
+};

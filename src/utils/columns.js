@@ -454,37 +454,41 @@ export const groupColumns = [
 export const userListColumns = [
   {
     title: "账号",
-    dataIndex: "account",
+    dataIndex: "Device_name",
+  },
+  {
+    title: "邀请人",
+    dataIndex: "Device_yname",
   },
   {
     title: "权限",
-    dataIndex: "permissions",
-    render: (record) => (
-      <div>
-        {record === 0 && "超级管理员"}
-        {record === 1 && "销售"}
-        {record === 2 && "普通用户"}
-      </div>
-    ),
+    dataIndex: "Device_type",
+    // render: (record) => (
+    //   <div>
+    //     {record === 0 && "超级管理员"}
+    //     {record === 1 && "销售"}
+    //     {record === 2 && "普通用户"}
+    //   </div>
+    // ),
   },
   {
     title: "是否禁用",
-    dataIndex: "disable",
-    render: (record) => (
-      <div>
-        {record === 0 && "正常"}
-        {record === 1 && "禁用"}
-      </div>
-    ),
+    dataIndex: "Device_state",
+    // render: (record) => (
+    //   <div>
+    //     {record === 0 && "正常"}
+    //     {record === 1 && "禁用"}
+    //   </div>
+    // ),
   },
   {
     title: "余额",
-    dataIndex: "balance",
+    dataIndex: "Device_money",
   },
   {
     title: "创建时间",
     width: 200,
-    dataIndex: "create_time",
+    dataIndex: "Device_time",
   },
 ];
 

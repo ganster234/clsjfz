@@ -52,14 +52,16 @@ export default function UserList() {
     const { current, pageSize } = tableParams.pagination;
     setLoading(true);
     let result = await getUserList({
-      page: str ? 1 : current,
-      limit: str ? 10 : pageSize,
-      username: str ? "" : username,
+      // page: str ? 1 : current,
+      // limit: str ? 10 : pageSize,
+      // username: str ? "" : username,
+      Pagenum: "1",
+      Pagesize: "30",
     });
     const { code, data, msg } = result || {};
-    if (code === 200) {
-      if (data?.data) {
-        setDataList([...data.data]);
+    if (code) {
+      if (data.length) {
+        setDataList([...data]);
         setTotal(data?.total);
         setLoading(false);
       }
@@ -196,7 +198,7 @@ export default function UserList() {
                     ...userListColumns,
                     {
                       title: "操作",
-                      width: 400,
+
                       render: (record) => (
                         <>
                           {role &&
