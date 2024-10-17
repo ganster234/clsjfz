@@ -12,11 +12,11 @@ export const getUserList = (data) => {
 
 //重置用户密码
 export const setPasswod = (data) => {
-  return postData("log/reset/password", data);
+  return postData("UsertableUp", data);
 };
 //禁用，启用用户
 export const setInterdict = (data) => {
-  return postData("block/account", data);
+  return postData("UsertableUp", data);
 };
 
 //修改余额

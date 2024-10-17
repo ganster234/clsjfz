@@ -53,15 +53,23 @@ export default function Process() {
     const { account } = state;
     setLoading(true);
     let result = await getUsdtList({
-      account: str ? "" : account,
-      page: str ? 1 : current,
-      limit: str ? 10 : pageSize,
-      status: -1,
+      // account: str ? "" : account,
+      // page: str ? 1 : current,
+      // limit: str ? 10 : pageSize,
+      // status: -1,
+      Name: account ? "" : state.account, //名称
+      State: "-1", //状态0派单中 1失败 2成功
+      Pagenum: account ? 1 : current, //页数
+      Pagesize: account ? 10 : pageSize, //显示数
     });
-    const { code, msg, data } = result || {};
-    if (code === 200) {
-      setDataList([...data?.data.data]);
-      setTotal(data?.data.total);
+    const { code, data, msg, pagenum, total } = result || {};
+
+    if (code == 200) {
+      // setDataList([...data?.data.data]);
+      // setTotal(data?.data.total);
+      setDataList([...data]);
+      setTotal(pagenum);
+      setTotal(total);
     } else {
       message.destroy();
       message.error(msg);

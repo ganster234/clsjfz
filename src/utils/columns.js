@@ -372,15 +372,15 @@ export const rechargeColumns = [
 export const processColumns = [
   {
     title: "发布人账号",
-    dataIndex: "account",
+    dataIndex: "Device_name",
   },
   {
     title: "提交时间",
-    dataIndex: "create_time",
+    dataIndex: "Device_time",
   },
   {
     title: "充值金额USDT",
-    dataIndex: "money",
+    dataIndex: "Device_mball",
   },
 ];
 
@@ -439,15 +439,15 @@ export const projectColumns = [
 export const groupColumns = [
   {
     title: "ID",
-    dataIndex: "id",
+    dataIndex: "Device_gid",
   },
   {
     title: "分组名称",
-    dataIndex: "group_name",
+    dataIndex: "Device_Name",
   },
   {
     title: "创建时间",
-    dataIndex: "create_time",
+    dataIndex: "Device_time",
   },
 ];
 
@@ -528,69 +528,87 @@ export const priceManageColumns = [
 ];
 
 export const orderColumns = [
+  // {
+  //   title: "订单ID",
+  //   dataIndex: "id",
+  // },
+  // {
+  //   title: "用户",
+  //   dataIndex: "account",
+  // },
   {
-    title: "订单ID",
-    dataIndex: "id",
+    title: "订单号",
+    width: 360,
+    dataIndex: "Device_Sid",
   },
   {
     title: "用户",
-    dataIndex: "account",
+    dataIndex: "Device_name",
+  },
+  {
+    title: "项目ID",
+    dataIndex: "Device_pid",
   },
   {
     title: "项目名字",
     width: 120,
-    dataIndex: "appName",
+    dataIndex: "Device_pname",
   },
-  {
-    title: "项目ID",
-    width: 160,
-    dataIndex: "appId",
-  },
-  {
-    title: "订单号",
-    width: 360,
-    dataIndex: "orderId",
-  },
+
   {
     title: "套餐",
-    dataIndex: "packageName",
+    dataIndex: "Device_tname",
     render: (record) => <span>{record ? record : "--"}</span>,
   },
   {
-    title: "分组",
-    dataIndex: "group_name",
-    render: (record) => <span>{record ? record : "--"}</span>,
+    title: "状态", //状态  0未使用  1已使用
+    dataIndex: "Device_use",
+    render: (record) => (
+      <span>{record === "0" ? "未使用" : record === "1" ? "已使用" : "-"}</span>
+    ),
   },
   {
-    title: "投保",
-    dataIndex: "isInsure",
-    render: (record) => <span>{record === 1 ? "已投保" : "未投保"}</span>,
+    title: "售后", //售后 0未售后  1 已售后
+    dataIndex: "Device_sh",
+    render: (record) => (
+      <span>{record === "0" ? "未售后" : record === "1" ? "已售后" : "-"}</span>
+    ),
   },
-  {
-    title: "倍数",
-    dataIndex: "number",
-    render: (record) => <span>{record ? record : "--"}</span>,
-  },
-  {
-    title: "投保金额",
-    dataIndex: "insurePrice",
-    render: (record) => <span>{record ? record : "--"}</span>,
-  },
-  {
-    title: "创建时间",
-    width: 200,
-    dataIndex: "createTime",
-  },
+  // {
+  //   title: "分组",
+  //   dataIndex: "group_name",
+  //   render: (record) => <span>{record ? record : "--"}</span>,
+  // },
+  // {
+  //   title: "投保",
+  //   dataIndex: "isInsure",
+  //   render: (record) => <span>{record === 1 ? "已投保" : "未投保"}</span>,
+  // },
+  // {
+  //   title: "倍数",
+  //   dataIndex: "number",
+  //   render: (record) => <span>{record ? record : "--"}</span>,
+  // },
+  // {
+  //   title: "投保金额",
+  //   dataIndex: "insurePrice",
+  //   render: (record) => <span>{record ? record : "--"}</span>,
+  // },
   {
     title: "到期时间",
     width: 200,
-    dataIndex: "expiresTime",
-    render: (record) => (
-      <span>
-        {record ? dayjs(record * 1000).format("YYYY-MM-DD HH:mm:ss") : "-"}
-      </span>
-    ),
+    dataIndex: "Device_dqtime",
   },
+  // {
+  //   title: "到期时间",
+  //   width: 200,
+  //   dataIndex: "expiresTime",
+  //   render: (record) => (
+  //     <span>
+  //       {record ? dayjs(record * 1000).format("YYYY-MM-DD HH:mm:ss") : "-"}
+  //     </span>
+  //   ),
+  // },
   {
     title: "更新时间",
     width: 200,

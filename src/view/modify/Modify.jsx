@@ -15,34 +15,43 @@ export default function Modify() {
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false); //密码是否可见
   const [visibletow, setVisibletow] = useState(false); //确认密码是否可见
+  const [oldVisible, setOldVisible] = useState(false); //旧密码是否可见
+
   console.log(userInfo, "userInfouserInfo");
   const [state, setState] = useState({
     password: "",
     comPwd: "",
+    oldPassword: "",
   });
   const Userid = sessionStorage.getItem("user");
   const comSubmit = async () => {
     message.destroy();
-    if (!userInfo.id) {
-      return;
-    }
+    // if (!userInfo.id) {
+    //   return;
+    // }
     if (!state.password) {
       return message.error("请输入密码");
+    }
+    if (!state.oldPassword) {
+      return message.error("请输入旧密码");
     }
     if (state.comPwd !== state.password) {
       return message.error("两次输入密码不一致");
     }
     setLoading(true);
+    const { password, oldPassword } = state;
+
     let result = await postUpdatePwd({
       Sid: Userid,
-      Pass: state.password,
-      Oldpass: state.comPwd,
+      Pass: password, //新密码
+      Oldpass: oldPassword, //老密码
     });
-    if (result?.code === 200) {
+    // eslint-disable-next-line eqeqeq
+    if (result?.code == 200) {
       // 退出页面去除本地的登录信息
       localStorage.clear();
       sessionStorage.clear();
-      await navigate("/");
+      navigate("/");
       alert("修改成功");
     } else {
       message.error(result?.msg);
@@ -77,6 +86,31 @@ export default function Modify() {
                 }}
               />
             </div>
+
+            <div className="modify-content-item">
+              <span className="modify-content-item-title">旧密码</span>
+              <Input
+                type={oldVisible ? "text" : "password"}
+                value={state?.oldPassword}
+                placeholder="请输入旧密码"
+                style={{
+                  flex: 1,
+                  "--font-size": "14px",
+                  "--placeholder-color": "#BFBFBF",
+                }}
+                onChange={(even) => {
+                  setState((item) => ({ ...item, oldPassword: even }));
+                }}
+              />
+              <div style={{ fontSize: "18px" }}>
+                {!oldVisible ? (
+                  <EyeInvisibleOutline onClick={() => setOldVisible(true)} />
+                ) : (
+                  <EyeOutline onClick={() => setOldVisible(false)} />
+                )}
+              </div>
+            </div>
+
             <div className="modify-content-item">
               <span className="modify-content-item-title">新密码</span>
               <Input

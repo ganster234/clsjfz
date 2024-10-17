@@ -2,7 +2,7 @@ import { postData, getData } from "./index";
 
 //获取订单列表
 export const getOrderList = (data) => {
-  return getData("/auth/appOrder/getOrderIdByUser", data);
+  return postData("OuSmTableGet", data);
 };
 
 //批量删除

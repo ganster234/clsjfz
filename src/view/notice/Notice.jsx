@@ -5,32 +5,47 @@ import useAppStore from "../../store";
 
 import LayoutPanel from "../../components/layoutPanel/LayoutPanel";
 import HeadNav from "../../components/haedNav/HeadNav";
-import { postUpdateNotice } from "../../api/notice";
+import { getNotice, postUpdateNotice } from "../../api/notice";
 
 import "./Notice.less";
 
 export default function Notice() {
   const [notice, setNotice] = useState("");
+  // const [state, setState] = useState({});
   const userInfo = useAppStore((state) => state.userInfo); //用户信息
   useEffect(() => {
-    if (userInfo?.notice) {
-      setNotice(userInfo?.notice);
-    }
+    console.log(userInfo, "userInfo");
+    getNoticeData();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const getNoticeData = async () => {
+    let result = await getNotice();
+    message.destroy();
+    // eslint-disable-next-line eqeqeq
+    if (result?.code == 200) {
+      setNotice(result?.data[0].Device_Remark);
+    } else {
+      message.error(result?.msg);
+    }
+  };
 
   const changeNotice = async () => {
     message.destroy();
-    if (!userInfo?.id) {
-      return;
-    }
+    // if (!userInfo?.id) {
+    //   return;
+    // }
     message.open({
       type: "loading",
       content: "加载中..",
       duration: 0,
     });
-    let result = await postUpdateNotice({ id: userInfo?.id, notice: notice });
+    let result = await postUpdateNotice({
+      // id: userInfo?.id, notice: notice
+      Remark: notice,
+    });
     message.destroy();
-    if (result?.code === 200) {
+    // eslint-disable-next-line eqeqeq
+    if (result?.code == 200) {
       message.success("修改成功");
     } else {
       message.error(result?.msg);

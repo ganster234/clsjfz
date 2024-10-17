@@ -40,27 +40,35 @@ export default function Order() {
       setHeight(getResidueHeightByDOMRect());
     };
     getOrder();
-  }, [JSON.stringify(tableParams),JSON.stringify(state.timeList)]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(tableParams), JSON.stringify(state.timeList)]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 获取订单列表
   const getOrder = async (str) => {
     const { current, pageSize } = tableParams.pagination;
     const { timeList, order_id, account } = state;
     let parma = {
-      ...state,
-      order_id: str ? "" : order_id + "",
-      start_time: dayjs(str ? new Date() : timeList[0]).format("YYYY-MM-DD"),
-      end_time: dayjs(str ? new Date() : timeList[1]).format("YYYY-MM-DD"),
-      account: str ? "" : account + "",
-      page: current,
-      limit: pageSize,
+      // ...state,
+      // order_id: str ? "" : order_id + "",
+      // start_time: dayjs(str ? new Date() : timeList[0]).format("YYYY-MM-DD"),
+      // end_time: dayjs(str ? new Date() : timeList[1]).format("YYYY-MM-DD"),
+      // account: str ? "" : account + "",
+      // page: current,
+      // limit: pageSize,
+
+      Username: str ? "" : account + "", //用户名
+      Sid: str ? "" : order_id + "", //订单号
+      Stime: dayjs(str ? new Date() : timeList[0]).format("YYYY-MM-DD"),
+      Etime: dayjs(str ? new Date() : timeList[1]).format("YYYY-MM-DD"),
+      Pagenum: current,
+      Pagesize: pageSize,
     };
     setLoading(true);
     let result = await getOrderList(parma);
-    const { code, data, msg } = result || {};
-    if (code === 200) {
-      setTotal(data?.orderTotal);
-      setDataList([...data?.orderInfoList]);
+    const { code, data, msg, pagenum } = result || {};
+
+    if (code) {
+      setTotal(pagenum);
+      setDataList([...data]);
     } else {
       message.error(msg);
     }
