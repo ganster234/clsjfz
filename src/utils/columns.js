@@ -55,11 +55,11 @@ export const typeConfig = {
     columns: [
       {
         title: "项目名",
-        dataIndex: "app_name",
+        dataIndex: "Device_name",
       },
       {
         title: "总量",
-        dataIndex: "totals",
+        dataIndex: "Device_num",
       },
     ],
   },
@@ -68,15 +68,15 @@ export const typeConfig = {
     columns: [
       {
         title: "账号",
-        dataIndex: "account",
+        dataIndex: "Device_name",
       },
       {
         title: "总量",
-        dataIndex: "totalNum",
+        dataIndex: "Device_num",
       },
       {
         title: "总金额",
-        dataIndex: "totalAmount",
+        dataIndex: "Device_money",
       },
       {
         title: "项目",
@@ -87,11 +87,11 @@ export const typeConfig = {
             showSearch
             filterOption={filterOption}
           >
-            {record.app_lst &&
-              record.app_lst.map((item, index) => {
+            {record.Device_data &&
+              record.Device_data.map((item, index) => {
                 return (
-                  <Option key={index} value={item}>
-                    {item}
+                  <Option key={index} value={item.Device_account}>
+                    {item.Device_account}
                   </Option>
                 );
               })}
@@ -105,24 +105,24 @@ export const typeConfig = {
     columns: [
       {
         title: "项目ID",
-        dataIndex: "app_id",
+        dataIndex: "Device_pid",
       },
       {
         title: "项目名称",
-        dataIndex: "app_name",
+        dataIndex: "Device_pname",
       },
       {
         title: "套餐名称",
-        dataIndex: "package_name",
+        dataIndex: "Device_tname",
         render: (record) => <span>{record ? record : "--"}</span>,
       },
       {
         title: "总量",
-        dataIndex: "totalNum",
+        dataIndex: "Device_num",
       },
       {
         title: "总金额",
-        dataIndex: "totalAmount",
+        dataIndex: "Device_money",
       },
     ],
   },
@@ -157,26 +157,26 @@ export const typeConfig = {
     columns: [
       {
         title: "项目ID",
-        dataIndex: "app_id",
+        dataIndex: "Device_pid",
       },
       {
         title: "项目名称",
-        dataIndex: "app_name",
+        dataIndex: "Device_pname",
       },
       {
         title: "套餐名称",
-        dataIndex: "package_name",
+        dataIndex: "Device_tname",
         render: (record) => <span>{record ? record : "--"}</span>,
       },
       {
         title: "总量",
-        // dataIndex: "totalNum",
-        render: (record) => (
-          <>
-            <span>{record.totalNum || "0"}</span>
-            {record.zhutotalNum && <span>({record.zhutotalNum})</span>}
-          </>
-        ),
+        dataIndex: "Device_num",
+        // render: (record) => (
+        //   <>
+        //     <span>{record.totalNum || "0"}</span>
+        //     {record.zhutotalNum && <span>({record.zhutotalNum})</span>}
+        //   </>
+        // ),
       },
       // {
       //   title: "喜猫总量",
@@ -189,13 +189,13 @@ export const typeConfig = {
       // },
       {
         title: "总金额",
-        // dataIndex: "totalAmount",
-        render: (record) => (
-          <>
-            <span>{record.totalAmount || "0"}</span>
-            {record.zhutotalAmount && <span>({record.zhutotalAmount})</span>}
-          </>
-        ),
+        dataIndex: "Device_money",
+        // render: (record) => (
+        //   <>
+        //     <span>{record.totalAmount || "0"}</span>
+        //     {record.zhutotalAmount && <span>({record.zhutotalAmount})</span>}
+        //   </>
+        // ),
       },
       // {
       //   title: "喜猫总金额",
@@ -289,35 +289,35 @@ export const scanColumns = [
 export const payColumns = [
   {
     title: "账号名称",
-    dataIndex: "account",
+    dataIndex: "Device_user",
     render: (record) => <span>{record ? record : "-"}</span>,
   },
   {
     title: "项目名称",
-    dataIndex: "app_name",
+    dataIndex: "Device_name",
     render: (record) => <span>{record ? record : "-"}</span>,
   },
   {
     title: "套餐名称",
-    dataIndex: "package_name",
+    dataIndex: "Device_pname",
     render: (record) => <span>{record ? record : "-"}</span>,
   },
   {
     title: "订单数量",
-    dataIndex: "order_num",
+    dataIndex: "Device_num",
     render: (record) => <span>{record ? record : "0"}</span>,
   },
   {
     title: "支付金额",
-    dataIndex: "pay_balance",
+    dataIndex: "Device_money",
   },
   {
     title: "剩余金额",
-    dataIndex: "sum_balance",
+    dataIndex: "Device_yemoney",
   },
   {
     title: "创建时间",
-    dataIndex: "create_time",
+    dataIndex: "Device_time",
   },
 ];
 
@@ -560,20 +560,7 @@ export const orderColumns = [
     dataIndex: "Device_tname",
     render: (record) => <span>{record ? record : "--"}</span>,
   },
-  {
-    title: "状态", //状态  0未使用  1已使用
-    dataIndex: "Device_use",
-    render: (record) => (
-      <span>{record === "0" ? "未使用" : record === "1" ? "已使用" : "-"}</span>
-    ),
-  },
-  {
-    title: "售后", //售后 0未售后  1 已售后
-    dataIndex: "Device_sh",
-    render: (record) => (
-      <span>{record === "0" ? "未售后" : record === "1" ? "已售后" : "-"}</span>
-    ),
-  },
+
   // {
   //   title: "分组",
   //   dataIndex: "group_name",
@@ -610,9 +597,9 @@ export const orderColumns = [
   //   ),
   // },
   {
-    title: "更新时间",
+    title: "创建时间",
     width: 200,
-    dataIndex: "updateTime",
+    dataIndex: "Device_time",
   },
 ];
 

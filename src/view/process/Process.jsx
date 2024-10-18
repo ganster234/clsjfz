@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, message, Popconfirm } from "antd";
-import { Popup, Button, Input } from "antd-mobile";
+import { Popup, Button, Input, Calendar } from "antd-mobile";
+import dayjs from "dayjs";
 
 import LayoutPanel from "../../components/layoutPanel/LayoutPanel";
 import { getResidueHeightByDOMRect } from "../../utils/utils";
@@ -30,6 +31,7 @@ export default function Process() {
   const [height, setHeight] = useState(0);
   const [state, setState] = useState({
     account: "", //用户名
+    dateList: [new Date(), new Date()],
   });
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -37,6 +39,7 @@ export default function Process() {
       pageSize: 10, // 每页数据条数
     },
   });
+  const [dateScan, setDateScan] = useState(false); //data弹窗
 
   useEffect(() => {
     //高度自适应
@@ -46,11 +49,11 @@ export default function Process() {
     };
     // 初始化数据包括后续更新
     getList();
-  }, [JSON.stringify(tableParams)]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(tableParams), JSON.stringify(state.dateList)]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getList = async (str) => {
     const { current, pageSize } = tableParams.pagination;
-    const { account } = state;
+    const { account, dateList } = state;
     setLoading(true);
     let result = await getUsdtList({
       // account: str ? "" : account,
@@ -61,15 +64,20 @@ export default function Process() {
       State: "-1", //状态0派单中 1失败 2成功
       Pagenum: account ? 1 : current, //页数
       Pagesize: account ? 10 : pageSize, //显示数
+      Stime:
+        dateList[0] &&
+        dayjs(str ? new Date() : dateList[0]).format("YYYY-MM-DD"), //开始时间
+      Etime:
+        dateList[1] &&
+        dayjs(str ? new Date() : dateList[1]).format("YYYY-MM-DD"), //结束时间
     });
     const { code, data, msg, pagenum, total } = result || {};
 
-    if (code == 200) {
+    if (code) {
       // setDataList([...data?.data.data]);
       // setTotal(data?.data.total);
       setDataList([...data]);
       setTotal(pagenum);
-      setTotal(total);
     } else {
       message.destroy();
       message.error(msg);
@@ -148,6 +156,17 @@ export default function Process() {
             <div className="process-top-screen">
               <span
                 className="process-top-screen-item"
+                onClick={() => setDateScan(true)}
+              >
+                <span>选择时间</span>
+                <img
+                  src={require("../../assets/image/triangle.png")}
+                  alt=""
+                  className="process-screen-item-icon"
+                />
+              </span>
+              <span
+                className="process-top-screen-item"
                 onClick={() => setProcessShow(true)}
               >
                 <span>用户名称</span>
@@ -162,6 +181,10 @@ export default function Process() {
         }
         content={
           <div className="process-content">
+            <div className="scan-content-time">
+              {dayjs(state?.dateList[0]).format("YYYY年MM月DD日")}-
+              {dayjs(state?.dateList[1]).format("YYYY年MM月DD日")}
+            </div>
             <div className="process-content-main">
               <div className="process-main-title">U记录</div>
               <Table
@@ -183,14 +206,15 @@ export default function Process() {
                   ...processColumns,
                   {
                     title: "审核状态",
-                    dataIndex: "status",
+                    dataIndex: "Device_shstate",
                     render: (record) => (
                       <div className="process-table-status">
-                        <span
+                        {/* <span
                           className="process-status-round"
                           style={{ background: bgColor[record] || "" }}
                         ></span>
-                        <span>{statusTest[record] || "--"}</span>
+                        <span>{statusTest[record] || "--"}</span> */}
+                        {record}
                       </div>
                     ),
                   },
@@ -281,6 +305,36 @@ export default function Process() {
                     clearable
                   />
                 </div>
+              </div>
+            </Popup>
+
+            <Popup
+              visible={dateScan}
+              destroyOnClose={true}
+              onMaskClick={() => {
+                setDateScan(false);
+              }}
+              onClose={() => {
+                setDateScan(false);
+              }}
+              position="bottom"
+              bodyStyle={{
+                borderTopLeftRadius: "12px",
+                borderTopRightRadius: "12px",
+                minHeight: "40vh",
+              }}
+            >
+              <div style={{ padding: "12px" }}>
+                <Calendar
+                  className="calendar-custom"
+                  defaultValue={state?.dateList}
+                  selectionMode="range"
+                  onChange={(even) => {
+                    if (even) {
+                      setState((item) => ({ ...item, dateList: even }));
+                    }
+                  }}
+                />
               </div>
             </Popup>
           </div>

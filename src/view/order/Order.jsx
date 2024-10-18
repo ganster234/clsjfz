@@ -181,7 +181,7 @@ export default function Order() {
                   x: 2400,
                   y: height,
                 }}
-                rowKey={(record) => record.orderId}
+                rowKey={(record) => record.Device_Sid}
                 loading={loading}
                 pagination={{
                   ...tableParams.pagination,
@@ -194,32 +194,36 @@ export default function Order() {
                   ...orderColumns,
                   {
                     title: "状态",
-                    dataIndex: "firstAuth",
+                    dataIndex: "Device_use",
                     render: (record) => (
                       <span
-                        style={{ color: record === 1 ? "#666666" : "#327DFC" }}
+                        style={{
+                          color: record === "0" ? "#327DFC" : "# 666666",
+                        }}
                       >
-                        {record === 1 ? "未使用" : "已使用"}
+                        {record === "0" ? "未使用" : "已使用"}
                       </span>
                     ),
                   },
                   {
                     title: "自动售后",
-                    dataIndex: "aftersaleed",
+                    dataIndex: "Device_sh",
                     render: (record) => (
                       <span
-                        style={{ color: record === 1 ? "#666666" : "#12C3B1" }}
+                        style={{
+                          color: record === "1" ? "#666666" : "#12C3B1",
+                        }}
                       >
-                        {record === 1 ? "已售后" : "未自动售后"}
+                        {record === 1 ? "未售后" : "已售后"}
                       </span>
                     ),
                   },
-                  {
-                    title: "备注",
-                    width: 200,
-                    dataIndex: "remark",
-                    render: (record) => <span>{record ? record : "-"}</span>,
-                  },
+                  // {
+                  //   title: "备注",
+                  //   width: 200,
+                  //   dataIndex: "remark",
+                  //   render: (record) => <span>{record ? record : "-"}</span>,
+                  // },
                 ]}
                 dataSource={dataList}
               />
