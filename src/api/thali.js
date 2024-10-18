@@ -10,7 +10,6 @@ export const getPackDetail = (data) => {
   return postData("OuproTableDetailGet", data);
 };
 
-
 //下单
 export const getPlaceOrder = (data) => {
   return postData("OuproTableDetailAdd", data);
@@ -23,3 +22,8 @@ export const getkucun = (data) => {
 };
 
 
+//设置管理员
+export const permissions = (data) => {
+  // return getData("set/permissions", data);
+  return postData("UsertableUp", data);
+};

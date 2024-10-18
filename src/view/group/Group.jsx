@@ -7,6 +7,7 @@ import LayoutPanel from "../../components/layoutPanel/LayoutPanel";
 import { groupColumns } from "../../utils/columns";
 import { getResidueHeightByDOMRect } from "../../utils/utils";
 import { getGroupList, getDelGroup, postAddGroup } from "../../api/group";
+import useAppStore from "../../store";
 
 import "./Group.less";
 
@@ -25,6 +26,7 @@ export default function Group() {
       pageSize: 10, // 每页数据条数
     },
   });
+  const userInfo = useAppStore((state) => state.userInfo);
 
   // 初始化
   useEffect(() => {
@@ -40,12 +42,15 @@ export default function Group() {
     const { current, pageSize } = tableParams.pagination;
     setLoading(true);
     let result = await getGroupList({
-      page: current,
-      limit: pageSize,
+      // page: current,
+      // limit: pageSize,
+      Pagenum: current,
+      Pagesize: pageSize,
+      Sid: userInfo.Device_Sid, //用户sid
     });
     const { code, data, msg } = result || {};
-    if (code === 200) {
-      setDataList([...data?.data]);
+    if (code) {
+      setDataList([...data]);
       setTotal(data?.total);
     } else {
       message.destroy();
@@ -62,14 +67,19 @@ export default function Group() {
   };
 
   const confirmDelete = async (record) => {
-    if (!record.id) {
+    if (!record.Device_sid) {
       return;
     }
-    let result = await getDelGroup({ id: record.id });
+    let result = await getDelGroup({
+      // id: record.id
+      Sid: record.Device_sid, //用户sid
+      Gid: record.Device_gsid, //分组sid
+    });
     message.destroy();
-    if (result?.code === 200) {
+    // eslint-disable-next-line eqeqeq
+    if (result?.code == 200) {
       message.success(result?.msg);
-      getList();
+      await getList();
     } else {
       message.error(result?.msg);
     }
@@ -82,9 +92,13 @@ export default function Group() {
       return message.error("请输入要添加的分组名称");
     }
     setConfirmLoading(true);
-    let result = await postAddGroup({ name: addGroupName });
+    let result = await postAddGroup({
+      Sid: userInfo.Device_Sid, //用户sid
+      Name: addGroupName, //"分组名称"
+    });
     message.destroy();
-    if (result?.code === 200) {
+    // eslint-disable-next-line eqeqeq
+    if (result?.code == 200) {
       setAddGroupName("");
       message.success("添加成功");
       setAddGroupShow(false);
@@ -121,7 +135,7 @@ export default function Group() {
                   x: 800,
                   y: height,
                 }}
-                rowKey={(record) => record.id}
+                rowKey={(record) => record.Device_gid}
                 loading={loading}
                 pagination={{
                   ...tableParams.pagination,

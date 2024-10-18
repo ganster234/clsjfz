@@ -40,27 +40,35 @@ export default function Order() {
       setHeight(getResidueHeightByDOMRect());
     };
     getOrder();
-  }, [JSON.stringify(tableParams),JSON.stringify(state.timeList)]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(tableParams), JSON.stringify(state.timeList)]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 获取订单列表
   const getOrder = async (str) => {
     const { current, pageSize } = tableParams.pagination;
     const { timeList, order_id, account } = state;
     let parma = {
-      ...state,
-      order_id: str ? "" : order_id + "",
-      start_time: dayjs(str ? new Date() : timeList[0]).format("YYYY-MM-DD"),
-      end_time: dayjs(str ? new Date() : timeList[1]).format("YYYY-MM-DD"),
-      account: str ? "" : account + "",
-      page: current,
-      limit: pageSize,
+      // ...state,
+      // order_id: str ? "" : order_id + "",
+      // start_time: dayjs(str ? new Date() : timeList[0]).format("YYYY-MM-DD"),
+      // end_time: dayjs(str ? new Date() : timeList[1]).format("YYYY-MM-DD"),
+      // account: str ? "" : account + "",
+      // page: current,
+      // limit: pageSize,
+
+      Username: str ? "" : account + "", //用户名
+      Sid: str ? "" : order_id + "", //订单号
+      Stime: dayjs(str ? new Date() : timeList[0]).format("YYYY-MM-DD"),
+      Etime: dayjs(str ? new Date() : timeList[1]).format("YYYY-MM-DD"),
+      Pagenum: current,
+      Pagesize: pageSize,
     };
     setLoading(true);
     let result = await getOrderList(parma);
-    const { code, data, msg } = result || {};
-    if (code === 200) {
-      setTotal(data?.orderTotal);
-      setDataList([...data?.orderInfoList]);
+    const { code, data, msg, pagenum } = result || {};
+
+    if (code) {
+      setTotal(pagenum);
+      setDataList([...data]);
     } else {
       message.error(msg);
     }
@@ -173,7 +181,7 @@ export default function Order() {
                   x: 2400,
                   y: height,
                 }}
-                rowKey={(record) => record.orderId}
+                rowKey={(record) => record.Device_Sid}
                 loading={loading}
                 pagination={{
                   ...tableParams.pagination,
@@ -186,32 +194,36 @@ export default function Order() {
                   ...orderColumns,
                   {
                     title: "状态",
-                    dataIndex: "firstAuth",
+                    dataIndex: "Device_use",
                     render: (record) => (
                       <span
-                        style={{ color: record === 1 ? "#666666" : "#327DFC" }}
+                        style={{
+                          color: record === "0" ? "#327DFC" : "# 666666",
+                        }}
                       >
-                        {record === 1 ? "未使用" : "已使用"}
+                        {record === "0" ? "未使用" : "已使用"}
                       </span>
                     ),
                   },
                   {
                     title: "自动售后",
-                    dataIndex: "aftersaleed",
+                    dataIndex: "Device_sh",
                     render: (record) => (
                       <span
-                        style={{ color: record === 1 ? "#666666" : "#12C3B1" }}
+                        style={{
+                          color: record === "1" ? "#666666" : "#12C3B1",
+                        }}
                       >
-                        {record === 1 ? "已售后" : "未自动售后"}
+                        {record === 1 ? "未售后" : "已售后"}
                       </span>
                     ),
                   },
-                  {
-                    title: "备注",
-                    width: 200,
-                    dataIndex: "remark",
-                    render: (record) => <span>{record ? record : "-"}</span>,
-                  },
+                  // {
+                  //   title: "备注",
+                  //   width: 200,
+                  //   dataIndex: "remark",
+                  //   render: (record) => <span>{record ? record : "-"}</span>,
+                  // },
                 ]}
                 dataSource={dataList}
               />

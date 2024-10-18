@@ -8,6 +8,7 @@ import LayoutPanel from "../../components/layoutPanel/LayoutPanel";
 import { getPayList } from "../../api/pay";
 import { getResidueHeightByDOMRect } from "../../utils/utils";
 import { payColumns } from "../../utils/columns";
+import useAppStore from "../../store";
 
 import "./Payment.less";
 import "../../assets/css/Calendar.less";
@@ -29,6 +30,8 @@ export default function Payment() {
       pageSize: 10, // 每页数据条数
     },
   });
+  const userInfo = useAppStore((state) => state.userInfo); //用户信息
+
   useEffect(() => {
     //高度自适应
     setHeight(getResidueHeightByDOMRect());
@@ -37,6 +40,7 @@ export default function Payment() {
     };
     // 初始化获取数据
     getList();
+    console.log(userInfo, "userInfo");
   }, [JSON.stringify(tableParams), JSON.stringify(state)]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getList = async () => {
@@ -44,16 +48,23 @@ export default function Payment() {
     const { dateList } = state;
     setLoading(true);
     let result = await getPayList({
-      start_time: dayjs(dateList[0] || new Date()).format("YYYY-MM-DD"),
-      end_time: dayjs(dateList[1] || new Date()).format("YYYY-MM-DD"),
-      page: current,
-      limit: pageSize,
+      // start_time: dayjs(dateList[0] || new Date()).format("YYYY-MM-DD"),
+      // end_time: dayjs(dateList[1] || new Date()).format("YYYY-MM-DD"),
+      // page: current,
+      // limit: pageSize,
+      Userid: userInfo.Device_Sid,
+      Stime: dayjs(dateList[0] || new Date()).format("YYYY-MM-DD"),
+      Etime: dayjs(dateList[1] || new Date()).format("YYYY-MM-DD"),
+      Pagenum: current,
+      Pagesize: pageSize,
     });
     const { code, data, msg } = result || {};
-    if (code === 200) {
-      setDataList([...data?.list.data]);
-      setTotal(data?.list.total);
-      setaggregate(data?.total);
+    if (code) {
+      // setDataList([...data?.list.data]);
+      // setTotal(data?.list.total);
+      // setaggregate(data?.total);
+      console.log(result, "resultresultresult");
+      setDataList([...data]);
     } else {
       message.destroy();
       message.error(msg);

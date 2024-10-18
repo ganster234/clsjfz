@@ -6,7 +6,12 @@ import dayjs from "dayjs";
 import { getResidueHeightByDOMRect } from "../../utils/utils";
 import LayoutPanel from "../../components/layoutPanel/LayoutPanel";
 import CountTop from "./components/CountTop";
-import { getCount } from "../../api/count";
+import {
+  getCount,
+  getOutjsm,
+  getOutjpay,
+  getOutjpropay,
+} from "../../api/count";
 import { typeConfig } from "../../utils/columns";
 
 import "./Count.less";
@@ -74,14 +79,14 @@ export default function Count() {
     } else if (type && (type[0] === "2" || type[0] === "6")) {
       setColumns([
         ...columns,
-        {
-          title: "操作",
-          render: (record) => (
-            <Button type="primary" onClick={() => countDetails(record)}>
-              查看详情
-            </Button>
-          ),
-        },
+        // {
+        //   title: "操作",
+        //   render: (record) => (
+        //     <Button type="primary" onClick={() => countDetails(record)}>
+        //       查看详情
+        //     </Button>
+        //   ),
+        // },
       ]);
     } else if (type && type[0] === "3") {
       setColumns([
@@ -112,27 +117,59 @@ export default function Count() {
     }
     setTableWidht(tableWidht);
     setLoading(true);
-    let result = await getCount({
-      start_time: str
-        ? ""
-        : dateList[0] && dayjs(dateList[0]).format("YYYY-MM-DD"),
-      end_time: str
-        ? ""
-        : dateList[1] && dayjs(dateList[1]).format("YYYY-MM-DD"),
-      type: type[0],
-      app_id: str ? "" : state.app_id,
-    });
-    const { code, data, msg } = result || {};
-    message.destroy();
-    if (code === 200) {
-      if (data && data.length > 0) {
+    // let result = await getCount({
+    //   start_time: str
+    //     ? ""
+    //     : dateList[0] && dayjs(dateList[0]).format("YYYY-MM-DD"),
+    //   end_time: str
+    //     ? ""
+    //     : dateList[1] && dayjs(dateList[1]).format("YYYY-MM-DD"),
+    //   type: type[0],
+    //   app_id: str ? "" : state.app_id,
+    // });
+    const commonParams = {
+      Stime: str ? "" : dateList[0] && dayjs(dateList[0]).format("YYYY-MM-DD"),
+      Etime: str ? "" : dateList[1] && dayjs(dateList[1]).format("YYYY-MM-DD"),
+    };
+    try {
+      let response;
+      if (state.type[0] === "0") {
+        response = await getOutjsm(commonParams);
+        console.log("getOutjsm Response:", response);
+      } else if (state.type[0] === "1") {
+        response = await getOutjpay(commonParams);
+        console.log("getOutjpay Response:", response);
+      } else if (state.type[0] === "2") {
+        response = await getOutjpropay({ ...commonParams, Type: "1" });
+        console.log("getOutjpropay Type 1 Response:", response);
+      } else if (state.type[0] === "6") {
+        response = await getOutjpropay({ ...commonParams, Type: "2" });
+        console.log("getOutjpropay Type 2 Response:", response);
+      } else {
+        console.warn("无效的 state.type 值:", state.type);
+      }
+      const { code, data, msg } = response || {};
+      console.log(response, state.type, "state.type");
+      message.destroy();
+      if (code) {
         setTableList([...data]);
       } else {
-        setTableList([]);
+        message.error(msg);
       }
-    } else {
-      message.error(msg);
+    } catch (error) {
+      console.error("接口调用出错:", error);
     }
+    // const { code, data, msg } = result || {};
+    // message.destroy();
+    // if (code === 200) {
+    //   if (data && data.length > 0) {
+    //     setTableList([...data]);
+    //   } else {
+    //     setTableList([]);
+    //   }
+    // } else {
+    //   message.error(msg);
+    // }
     setLoading(false);
   };
 
@@ -199,16 +236,16 @@ export default function Count() {
                   scroll={{
                     y: 300,
                   }}
-                  rowKey={(record) => record.user_id}
+                  rowKey={(record, i) => i}
                   pagination={false}
                   columns={[
                     {
                       title: "账号",
-                      dataIndex: "account",
+                      dataIndex: "Device_account",
                       className: "replace-color",
                     },
                   ]}
-                  dataSource={scanDetail?.data}
+                  dataSource={scanDetail?.Device_data}
                 />
               </Modal>
               <Modal
