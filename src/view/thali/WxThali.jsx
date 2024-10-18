@@ -21,29 +21,32 @@ export default function Thali() {
   const [thaliLoading, setThaliLoading] = useState(false);
   const setThaliInfo = useAppStore((state) => state.setState);
   const navigate = useNavigate();
-
+  const whetherAPP =
+    location.pathname === "/mobile/wethali"
+      ? { Web: 0, App: 1 }
+      : { Web: 1, App: 0 };
   // useEffect(() => {
   //   if (thaliList && thaliList.length <= 0) {
   //     getList();
   //   }
   // }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    const whetherAPP =
-      location.pathname === "/mobile/wethali"
-        ? { is_web: 1, is_app: 0 }
-        : { is_web: 0, is_app: 1 };
     getList(whetherAPP);
   }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getList = async (val) => {
     setThaliLoading(true);
-    let result = await getThaliList({ is_qq: 2, ...val });
+    let result = await getThaliList({
+      Pagenum: "1",
+      Pagesize: "1000",
+      Type: 2,
+      ...val,
+    });
     const { code, data, msg } = result || {};
     message.destroy();
-    if (code === 200) {
-      const { appPriceList } = data || {};
-      if (appPriceList && appPriceList.length > 0) {
-        setThaliList([...appPriceList]);
+    if (code) {
+      if (data && data.length > 0) {
+        setThaliList([...data]);
       }
     } else {
       message.error(msg);
@@ -57,7 +60,7 @@ export default function Thali() {
       return thaliList;
     }
     return thaliList.filter((element) =>
-      element.appName?.includes(searchValue)
+      element.Device_name?.includes(searchValue)
     );
   }, [searchValue, thaliList]);
 
@@ -67,7 +70,7 @@ export default function Thali() {
 
   const jumpProjectDetail = (data) => {
     setThaliInfo(data, "thaliInfo");
-    navigate("/mobile/wethali/config");
+    navigate(`/mobile/wethali/config?data=${JSON.stringify(whetherAPP)}`);
   };
   return (
     <>
@@ -90,7 +93,7 @@ export default function Thali() {
               }}
               prefix={<SearchOutlined />}
             />
-            <span
+            {/* <span
               className="thali-add-btn"
               onClick={() => setThaliAddModal(true)}
             >
@@ -100,7 +103,7 @@ export default function Thali() {
                 className="add-thali-icon"
               />
               <span>添加</span>
-            </span>
+            </span> */}
           </div>
         }
         content={
@@ -109,24 +112,24 @@ export default function Thali() {
               {screenList &&
                 screenList.map((item) => {
                   return (
-                    <div className="thali-item" key={item?.id}>
+                    <div className="thali-item" key={item?.Device_Sid}>
                       <img
-                        src={item?.logoPath}
+                        src={item?.Device_url}
                         alt=""
                         className="thali-item-icon"
                       />
                       <span className="thali-item-content">
                         <div>
                           <div className="thali-item-title">
-                            {item?.appName}
+                            {item?.Device_name}
                           </div>
                           <div className="thali-item-inventory">
-                            库存:{item?.availableNum}
+                            库存:{item?.Device_kc}
                           </div>
                         </div>
                         <div className="thali-item-price">
                           <span className="thali-item-price-icon">￥</span>
-                          {item?.defaultAppPrice}
+                          {item?.Device_money}
                         </div>
                       </span>
                       <span

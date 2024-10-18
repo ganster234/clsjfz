@@ -67,12 +67,12 @@ export default function Home() {
             alt=""
             className="home-header-icon pointer"
           />  */}
-          <img
+          {/* <img
             src={require("../../assets/image/home/header/add-icon.png")}
             alt=""
             className="home-header-icon home-header-icon-left pointer"
             onClick={() => setMoreVisible(true)}
-          />
+          /> */}
         </div>
       </div>
       <div className="home-user-info">
