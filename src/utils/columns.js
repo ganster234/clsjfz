@@ -361,48 +361,61 @@ export const payColumns = [
 export const rechargeColumns = [
   {
     title: "充值用户",
-    dataIndex: "account",
+    dataIndex: "Device_name",
     render: (record) => <>{record ? record : "-"}</>,
   },
   {
     title: "数量",
-    dataIndex: "num",
+    dataIndex: "Device_num",
   },
   {
     title: "余额",
-    dataIndex: "balance",
+    dataIndex: "Device_mb",
     render: (record) => <>{record ? record : "-"}</>,
   },
   {
     title: "订单号",
-    dataIndex: "order_id",
+    dataIndex: "Device_Sid",
   },
   {
     title: "充值金额",
-    dataIndex: "money",
+    dataIndex: "Device_mball",
   },
   {
+    // render: (record) => (
+    //   <>
+    //     {record === -1
+    //       ? "全部"
+    //       : record === 1
+    //       ? "成功"
+    //       : record === 0
+    //       ? "支付中"
+    //       : "-"}
+    //   </>
     title: "状态",
-    dataIndex: "status",
+    dataIndex: "Device_state",
     render: (record) => (
-      <>
-        {record === -1
-          ? "全部"
-          : record === 1
-          ? "成功"
-          : record === 0
-          ? "支付中"
-          : "-"}
-      </>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          className="open-task-status"
+          style={{
+            color: record === "派单中" ? "#666666" : "#12C3B1 ",
+            border:
+              record === "派单中" ? "1px solid #666666" : "1px solid #12C3B1",
+          }}
+        >
+          {record}
+        </div>
+      </div>
     ),
   },
   {
     title: "标题",
-    dataIndex: "title",
+    dataIndex: "Device_mbweb",
   },
   {
     title: "创建时间",
-    dataIndex: "create_time",
+    dataIndex: "Device_time",
   },
 ];
 

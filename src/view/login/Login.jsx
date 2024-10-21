@@ -5,7 +5,7 @@ import { message, Spin } from "antd";
 import useAppStore from "../../store";
 
 import { context } from "../../components/AppProvider";
-import { login } from "../../api/login";
+import { login, getCode } from "../../api/login";
 import { usebegin } from "../../store/mystore";
 import { EyeInvisibleOutline, EyeOutline } from "antd-mobile-icons";
 
@@ -17,16 +17,41 @@ export default function Login() {
   const [state, setState] = useState({
     account: "",
     password: "",
+    verifyCode: "",
   });
   const [visible, setVisible] = useState(false); //密码是否可见
   const [loginLoading, setLoginLoading] = useState(false);
-
+  const [codeSrc, setCodeSrc] = useState("");
+  const [loginKey, setKey] = useState("");
+  const [loginCheckToken, setCheckToken] = useState("");
   const setRole = useAppStore((state) => state.setState); //用户信息
   const { resetMenus } = useContext(context);
 
-
+  useEffect(() => {
+    // transmitting({ data: JSON.stringify(newData) });
+    getCodeSrc();
+  }, []);
+  //获取验证码
+  const getCodeSrc = async () => {
+    let result = await getCode();
+    const { code, data } = result || {};
+    // eslint-disable-next-line eqeqeq
+    if (code == 200) {
+      if (data[0]?.img) {
+        setCodeSrc(data[0]?.img);
+        setKey(data[0]?.key);
+        setCheckToken(data[0]?.checkToken);
+      }
+    } else {
+      message.destroy();
+      message.open({
+        type: "error",
+        content: result.msg,
+      });
+    }
+  };
   const loginBtn = async () => {
-    const { account, password, } = state;
+    const { account, password, verifyCode } = state;
     message.destroy();
     if (!account) {
       return message.error("请输入账号");
@@ -35,10 +60,18 @@ export default function Login() {
       return message.error("请输入密码");
     }
     setLoginLoading(true);
-    let result = await login({ User: account, Pass: password });
+    // let result = await login({ User: account, Pass: password });
+    let result = await login({
+      User: account, //账号
+      Pass: password, //密码
+      Key: loginKey,
+      CheckToken: loginCheckToken, //二维码key
+      VerifyCode: verifyCode, //验证码
+    });
+
     // const fingerprint = await new Promise((resolve) => {
     //   Fingerprint2.get((components) => {
-    //     const values = components.map((component) => component.value); 
+    //     const values = components.map((component) => component.value);
     //     const fingerprint = Fingerprint2.x64hash128(values.join(""), 31);
     //     resolve(fingerprint);
     //   });
@@ -154,7 +187,7 @@ export default function Login() {
                 </div>
               </div>
             </div>
-            {/* <div className="login-form-item">
+            <div className="login-form-item">
               <div className="form-item-title">验证码</div>
               <div className="form-item-input-box">
                 <Input
@@ -175,7 +208,7 @@ export default function Login() {
                   onClick={() => getCodeSrc()}
                 />
               </div>
-            </div> */}
+            </div>
           </div>
           <div className="main-sign-btn">
             <Button

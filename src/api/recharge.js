@@ -2,7 +2,7 @@ import { getData, postData } from "./index";
 
 //获取支付记录列表
 export const getRecharge = (data) => {
-  return getData("user/recharge", data);
+  return postData("OupryGet", data);
 };
 
 //微信充值
@@ -17,7 +17,7 @@ export const getPayStatus = (data) => {
 
 //USTD充值
 export const getPayUsdt = (data) => {
-  return getData("pay/usdt", data);
+  return postData("OuxdAdd", data);
 };
 
 //卡密充值

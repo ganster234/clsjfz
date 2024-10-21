@@ -2,7 +2,7 @@ import { getData, postData } from "./index";
 
 //获取用户信息
 export const getUser = (data) => {
-  return postData("userInfo", data);
+  return postData("Userinfo", data);
 };
 
 //获取用户列表page第几页,limit一页多少条

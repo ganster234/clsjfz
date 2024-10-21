@@ -36,6 +36,8 @@ export default function Gold() {
   const [goldColumns, setGoldColumns] = useState([]); //充值数据
   const navigate = useNavigate();
   const userInfo = useAppStore((state) => state.userInfo); //用户信息
+  const Userid = sessionStorage.getItem("user");
+
   const setUserInfo = useAppStore((state) => state.setState); //设置用户信息
   //充值状态，noPay(未充值)，pay(充值中)，payOk(充值成功)，payCareful(ustd充值成功的状态)
   const [rechargeStatus, setRechargeStatus] = useState("noPay");
@@ -61,23 +63,24 @@ export default function Gold() {
 
   useEffect(() => {
     getDownload().then((res) => {
-      if (res.code === 200) {
+      if (res.code === "200") {
         setcustomer(res.data);
+        console.log(userInfo, "userInfo");
       }
     });
-    payprice({ is_use: "0" }).then((result) => {
+    payprice({ State: "0" }).then((result) => {
       console.log(result, "result");
-      if (result?.code === 200) {
+      if (result?.code === "200") {
         const filteredArray = result.data.map((item) => ({
-          label: item.pay_name,
+          label: item.Device_name,
           value:
-            item.pay_type === "wxpay"
+            item.Device_type === "wxpay"
               ? "wCHaPay"
-              : item.pay_type === "alipay"
+              : item.Device_type === "alipay"
               ? "wexin"
-              : item.pay_type === "usdt"
+              : item.Device_type === "usdt"
               ? "ustd"
-              : item.pay_type,
+              : item.Device_type,
           ...item,
         }));
         setGoldColumns(filteredArray);
@@ -187,11 +190,22 @@ export default function Gold() {
     //   return message.error("充U账户输入范围20-60字符之间");
     // }
     setGoldLoading(true);
-    let result = await getPayUsdt({
-      price: activeMoney,
-      num: 1,
-      addr: Topupaccount,
-    });
+    const prams = {
+      Usersid: Userid,
+      Username: userInfo.Device_name,
+      Num: "1",
+      Money: activeMoney,
+      Btmoney: "显示" + activeMoney,
+      Code: Topupaccount,
+      Type: postElection.Device_type,
+    };
+    let result = await getPayUsdt(prams);
+
+    // let result = await getPayUsdt({
+    //   price: activeMoney,
+    //   num: 1,
+    //   addr: Topupaccount,
+    // });
     if (result?.code === 200) {
       message.success("提交成功，请等待审核");
       setActiveMoney("100");
@@ -261,10 +275,10 @@ export default function Gold() {
 
   // 获取用户信息
   const getUserInfo = async () => {
-    let result = await getUser();
+    let result = await getUser({ Sid: Userid });
     const { code, data, msg } = result || {};
-    if (code === 200) {
-      setUserInfo(data, "userInfo");
+    if (code) {
+      setUserInfo(data[0]);
     } else {
       message.destroy();
       message.open({
@@ -316,7 +330,7 @@ export default function Gold() {
   const filters = (item) => {
     if (postElection) {
       const newArr = [...postElection.price_add].filter((el) => {
-        return el.price === item;
+        return el.Device_money === item;
       });
       return newArr.length > 0 ? newArr[0].add : 0;
     }
@@ -356,13 +370,13 @@ export default function Gold() {
                     <div className="account-massage-item account-massage-item-bottom-border">
                       账号名称：
                       <span className="account-massage-item-text">
-                        {userInfo?.account || "用户123"}
+                        {userInfo?.Device_name || "用户--"}
                       </span>
                     </div>
                     <div className="account-massage-item account-massage-item-bottom-border">
                       当前余额：
                       <span className="account-massage-item-text">
-                        {userInfo?.balance || "0.00"}
+                        {userInfo?.Device_money || "0.00"}
                       </span>
                     </div>
                     <div className="account-massage-item ">
@@ -425,7 +439,7 @@ export default function Gold() {
                         </div>
                       </>
                     )}
-                    {goldWay === "ustd" && userInfo?.wallet && (
+                    {goldWay === "ustd" && (
                       <>
                         <div className="gold-ustd-regard">
                           <img
@@ -444,7 +458,7 @@ export default function Gold() {
                         <div className="gold-collection-account">
                           <div className="gold-collection-title">收U账户：</div>
                           <div style={{ width: "76%", wordWrap: "break-word" }}>
-                            {userInfo?.wallet}
+                            {postElection?.Device_url}
                             {/* {Topupaccount.length > 20
                               ? userInfo?.wallet
                               : "请输入正确打U账户与选择充U金额"} */}
@@ -482,7 +496,7 @@ export default function Gold() {
                         >
                           温馨提示：提交转U金额，必须和真实的转U金额一致，否则该订单作废。请谨慎操作！
                         </p>
-                        <div className="gold-ustd-title">充U金额</div>
+                        <div className="gold-ustd-title">充U金额：</div>
                         <div className="gold-main-money-box gold-ustd-input-box">
                           {rechargeList.map((item, index) => {
                             return (
@@ -498,7 +512,7 @@ export default function Gold() {
                                 onClick={() => setActiveMoney(item)}
                               >
                                 <div>{item}</div>
-                                <div
+                                {/* <div
                                   className="gold-main-money-price"
                                   style={{
                                     color: activeMoney === item && "#F32243",
@@ -507,7 +521,7 @@ export default function Gold() {
                                   {goldWay === "ustd"
                                     ? `充值赠送：${filters(item)}u`
                                     : `当前售价：${item}元`}
-                                </div>
+                                </div> */}
                               </div>
                             );
                           })}
@@ -640,8 +654,10 @@ export default function Gold() {
                     } else {
                       console.log(selection.items[0], "确认了");
                       setpostElection(selection.items[0]);
-                      if (selection.items[0].price) {
-                        const arr = selection.items[0].price.split(",");
+                      if (selection.items[0].Device_money) {
+                        const arr = selection.items[0].Device_money.split(",");
+                        console.log(arr, "arrarr");
+
                         setrechargeList(arr);
                       }
                       setGoldWay(v[0]);
@@ -695,7 +711,7 @@ export default function Gold() {
               <div style={{ padding: "25px " }} className="gold-wexin-modal">
                 <img src={wexinSrc} alt="" className="gold-wexin-modal-src" />
                 <div className="wexin-modal-payment-title">
-                  {postElection.pay_name}
+                  {postElection.Device_name}
                   <span style={{ color: "#F32517" }}>
                     ￥
                     {goldWay === "wexin" ||

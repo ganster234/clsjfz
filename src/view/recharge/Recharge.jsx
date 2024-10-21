@@ -19,9 +19,13 @@ export default function Recharge() {
   const [goldWay, setGoldWay] = useState("-1"); //选中后的状态
   const [showGoldWay, setShowGoldWay] = useState(false); //状态查询框
   const goldColumns = [
-    { value: "-1", label: "全部" },
+    // { value: "-1", label: "全部" },
+    // { value: "1", label: "支付成功" },
+    // { value: "0", label: "未支付" },
+    { value: "", label: "全部" },
+    { value: "0", label: "派单中" },
     { value: "1", label: "支付成功" },
-    { value: "0", label: "未支付" },
+    { value: "2", label: "成功" },
   ];
 
   const [visible, setVisible] = useState(false); //搜索弹框
@@ -68,18 +72,26 @@ export default function Recharge() {
     const { dateList } = state;
     setLoading(true);
     let result = await getRecharge({
-      status: goldWay,
-      start_time: dayjs(dateList[0] || new Date()).format("YYYY-MM-DD"),
-      end_time: dayjs(dateList[1] || new Date()).format("YYYY-MM-DD"),
-      account: Fingerprintsearch,
-      page: current,
-      limit: pageSize,
+      // status: goldWay,
+      // start_time: dayjs(dateList[0] || new Date()).format("YYYY-MM-DD"),
+      // end_time: dayjs(dateList[1] || new Date()).format("YYYY-MM-DD"),
+      // account: Fingerprintsearch,
+      // page: current,
+      // limit: pageSize,
+      Name: Fingerprintsearch, //名称
+      Stime: dayjs(dateList[0] || new Date()).format("YYYY-MM-DD"), //开始时间
+      Etime: dayjs(dateList[1] || new Date()).format("YYYY-MM-DD"), //结束时间
+      State: goldWay, //状态0派单中 1失败 2成功
+      Pagenum: current, //页数
+      Pagesize: pageSize, //显示数
     });
-    const { code, msg, data } = result || {};
+    const { code, msg, data, pagenum, total } = result || {};
     // console.log(result);
-    if (code === 200) {
-      setDataList([...data?.data]);
-      setTotal(data?.total);
+    if (code) {
+      // setDataList([...data?.data]);
+      // setTotal(data?.total);
+      setDataList([...data]);
+      setTotal(pagenum);
     } else {
       message.destroy();
       message.error(msg);
@@ -171,7 +183,7 @@ export default function Recharge() {
                   x: 1050,
                   y: height,
                 }}
-                rowKey={(record) => record.id}
+                rowKey={(record) => record.Device_Sid}
                 loading={loading}
                 pagination={{
                   ...tableParams.pagination,
