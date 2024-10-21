@@ -25,18 +25,20 @@ export default function ExportPopup({ closeExportPopup }) {
   const comExport = async () => {
     message.destroy();
     if (!openidTaskId) {
-      return;
+      return message.error("请输入内容");
     }
-    if (!downloadList[active]) {
-      return message.error("请选择下载类型");
-    }
+    // if (!downloadList[active]) {
+    //   return message.error("请选择下载类型");
+    // }
     setExportLoading(true);
-    let result = await getUserOpen({
-      type: downloadList[active]?.value,
-      openid_task_id: openidTaskId,
-    });
+    // let result = await getUserOpen({
+    //   type: downloadList[active]?.value,
+    //   openid_task_id: openidTaskId,
+    // });
+    let result = await getUserOpen({ Sid: openidTaskId });
+
     const { code, data, msg } = result || {};
-    if (code === 200) {
+    if (code === "200") {
       exportRaw(openidTaskId, data, true);
       setActive(0);
       setOpenidTaskId("");
@@ -52,7 +54,7 @@ export default function ExportPopup({ closeExportPopup }) {
       <Spin spinning={exportLoading}>
         <div className="export-popup-top-icon"></div>
         <div className="export-popup-top-title">
-          订单导出
+          open导出
           <img
             src={require("../../../assets/image/popup-back.png")}
             alt=""
@@ -64,7 +66,7 @@ export default function ExportPopup({ closeExportPopup }) {
           <span className="export-popup-input-title">*</span>
           <Input
             value={openidTaskId}
-            placeholder="请输入内容"
+            placeholder="请输入任务编号"
             style={{
               "--font-size": "font-size: 16px;",
               "--placeholder-color": "#999999",
@@ -75,7 +77,7 @@ export default function ExportPopup({ closeExportPopup }) {
             clearable
           />
         </div>
-        {downloadList &&
+        {/* {downloadList &&
           downloadList.map((item, index) => {
             return (
               <div className="export-popup-radio-item" key={index}>
@@ -92,7 +94,7 @@ export default function ExportPopup({ closeExportPopup }) {
                 />
               </div>
             );
-          })}
+          })} */}
         <div className="export-btn" onClick={() => comExport()}>
           确定
         </div>

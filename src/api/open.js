@@ -1,7 +1,7 @@
 import { getData, postData } from "./index";
 //获取open列表
 export const getOpenList = (data) => {
-  return getData("open/list", data);
+  return postData("OuproOpenGet", data);
 };
 
 //创建open列

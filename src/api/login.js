@@ -13,3 +13,7 @@ export const register = (data) => {
 export const transmitting = (data) => {
   return postData("add/user/ip", data);
 };
+// 获取验证码
+export const getCode = (data) => {
+  return postData("AppVerifyCode", data);
+};

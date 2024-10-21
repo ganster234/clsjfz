@@ -7,5 +7,5 @@ export const setAddOpen = (data) => {
 
 //下载open
 export const getUserOpen = (data) => {
-  return getData("user/open/list", data);
+  return postData("OuproOpenUpload", data);
 };

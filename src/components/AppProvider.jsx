@@ -244,13 +244,13 @@ export default function AppProvider({ children }) {
       label: "修改密码",
       grade: "grade", //不需要显示在menu里面的页面
     },
-    {
-      key: "/mobile/user/account",
-      icon: require("../assets/image/sliderMenu/user-list.png"),
-      element: lazyLoad(lazy(() => import("../view/user/Accountstatus.jsx"))),
-      label: "账号状态",
-      roles: ["admin", "superAdmin"],
-    },
+    // {
+    //   key: "/mobile/user/account",
+    //   icon: require("../assets/image/sliderMenu/user-list.png"),
+    //   element: lazyLoad(lazy(() => import("../view/user/Accountstatus.jsx"))),
+    //   label: "账号状态",
+    //   roles: ["admin", "superAdmin"],
+    // },
     {
       key: "/mobile/payadministration",
       icon: require("../assets/image/sliderMenu/gold.png"),

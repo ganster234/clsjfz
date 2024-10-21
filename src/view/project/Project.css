@@ -66,7 +66,9 @@
   display: flex;
   align-items: center;
 }
-.popup-details-item .popup-details-item-content .popup-details-item-content-main {
+.popup-details-item
+  .popup-details-item-content
+  .popup-details-item-content-main {
   width: 80px;
   height: 26px;
   box-sizing: border-box;

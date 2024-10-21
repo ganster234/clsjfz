@@ -6,21 +6,21 @@ const filterOption = (input, option) =>
 export const settlement = [
   {
     title: "支付名",
-    dataIndex: "pay_name",
+    dataIndex: "Device_name",
   },
   {
     title: "状态",
-    dataIndex: "is_use",
+    dataIndex: "Device_state",
     render: (record) => (
       <div>
-        {record === 0 && "开启"}
-        {record === 1 && "关闭"}
+        {record === "0" && "开启"}
+        {record === "1" && "关闭"}
       </div>
     ),
   },
   {
     title: "支付类型",
-    dataIndex: "pay_type",
+    dataIndex: "Device_type",
   },
 ];
 export const myaccountdata = [
@@ -212,77 +212,114 @@ export const typeConfig = {
 
 export const openColumns = [
   {
-    title: "用户名称",
-    dataIndex: "account",
-  },
-  {
     title: "任务名称",
-    dataIndex: "name",
+    dataIndex: "Device_name",
   },
   {
     title: "任务数量",
-    dataIndex: "num",
+    dataIndex: "Device_num",
   },
   {
     title: "已完成数量",
-    dataIndex: "requests_num",
-  },
-  {
-    title: "已完成数量",
-    dataIndex: "create_time",
+    dataIndex: "Device_wcnum",
   },
 ];
 
 export const scanColumns = [
   {
     title: "appid",
-    dataIndex: "app_id",
+    dataIndex: "Device_appid",
   },
-  {
-    title: "账号",
-    dataIndex: "account",
-    width: 260,
-    render: (record) => <div>{record || "-"}</div>,
-  },
+  // {
+  //   title: "账号",
+  //   dataIndex: "account",
+  //   width: 260,
+  //   render: (record) => <div>{record || "-"}</div>,
+  // },
   {
     title: "项目名称",
-    dataIndex: "app_name",
+    dataIndex: "Device_name",
     render: (record) => <div>{record || "-"}</div>,
   },
   {
     title: "订单号",
-    dataIndex: "order_id",
+    dataIndex: "Device_psid",
     width: 260,
   },
 
   {
     title: "套餐名",
-    dataIndex: "package_name",
+    dataIndex: "Device_pname",
     render: (record) => <div>{record || "-"}</div>,
   },
   {
+    title: "套餐类型",
+    dataIndex: "Device_tcname",
+    render: (record) => <div>{record || "-"}</div>,
+  },
+  // {
+  //   title: "扫码类型",
+  //   dataIndex: "first_auth",
+  //   render: (record) => (
+  //     <span className={record ? "scan-type first" : "scan-type repeat"}>
+  //       {record ? "首次扫码" : "复扫"}
+  //     </span>
+  //   ),
+  // },
+  {
     title: "扫码类型",
-    dataIndex: "first_auth",
+    dataIndex: "Device_type",
     render: (record) => (
-      <span className={record ? "scan-type first" : "scan-type repeat"}>
-        {record ? "首次扫码" : "复扫"}
-      </span>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          className="scan-type"
+          style={{
+            color: record === "首次扫码" ? "#327dfc" : "#f7bb1e",
+            border:
+              record === "首次扫码" ? "1px solid #327dfc" : "1px solid #f7bb1e",
+          }}
+        >
+          {record}
+        </div>
+      </div>
+    ),
+  },
+  // {
+  //   title: "扫码状态",
+  //   dataIndex: "auth_state",
+  //   render: (record) => (
+  //     <span
+  //       className={record ? "scan-type scan-success" : "scan-type scan-fail"}
+  //     >
+  //       {record ? "扫码成功" : "扫码失败"}
+  //     </span>
+  //   ),
+  // },
+  {
+    title: "扫码状态",
+    dataIndex: "Device_state",
+    render: (record) => (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          className="scan-type"
+          style={{
+            color: record === "扫码成功" ? "#12C3B1" : "#f53e56",
+            border:
+              record === "扫码成功" ? "1px solid #12c3b1" : "1px solid #f53e56",
+          }}
+        >
+          {record}
+        </div>
+      </div>
     ),
   },
   {
-    title: "扫码状态",
-    dataIndex: "auth_state",
-    render: (record) => (
-      <span
-        className={record ? "scan-type scan-success" : "scan-type scan-fail"}
-      >
-        {record ? "扫码成功" : "扫码失败"}
-      </span>
-    ),
+    title: "备注",
+    dataIndex: "Device_remark",
   },
   {
     title: "创建时间",
-    dataIndex: "create_time",
+    dataIndex: "Device_time",
   },
 ];
 

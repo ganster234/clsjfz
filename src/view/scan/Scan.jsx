@@ -34,6 +34,8 @@ export default function Scan() {
     order_id: "", //order_id
     account: "", //account
   });
+  const Userid = sessionStorage.getItem("user");
+
   useEffect(() => {
     //高度自适应
     setHeight(getResidueHeightByDOMRect());
@@ -48,23 +50,37 @@ export default function Scan() {
     const { dateList, app_id, order_id, account } = state;
     setScanLoading(true);
     let result = await getSanList({
-      start_time:
+      // start_time:
+      //   dateList[0] &&
+      //   dayjs(str ? new Date() : dateList[0]).format("YYYY-MM-DD"),
+      // end_time:
+      //   dateList[1] &&
+      //   dayjs(str ? new Date() : dateList[1]).format("YYYY-MM-DD"),
+      // app_id: str ? "" : app_id,
+      // order_id: str ? "" : order_id,
+      // account: str ? "" : account,
+      // page: str ? 1 : current,
+      // limit: str ? 10 : pageSize,
+
+      Usersid: Userid,
+      Appid: str ? "" : app_id,
+      Name: str ? "" : account,
+      Stime:
         dateList[0] &&
         dayjs(str ? new Date() : dateList[0]).format("YYYY-MM-DD"),
-      end_time:
+      Etime:
         dateList[1] &&
         dayjs(str ? new Date() : dateList[1]).format("YYYY-MM-DD"),
-      app_id: str ? "" : app_id,
-      order_id: str ? "" : order_id,
-      account: str ? "" : account,
-      page: str ? 1 : current,
-      limit: str ? 10 : pageSize,
+      Pagenum: str ? "1" : current + "",
+      Pagesize: str ? "10" : pageSize + "",
     });
     const { code, data, msg } = result || {};
     message.destroy();
-    if (code === 200) {
-      setTableList([...data?.data]);
-      setTotal(data?.total);
+    if (code) {
+      // setTableList([...data?.data]);
+      // setTotal(data?.total);
+      setTableList([...data]);
+      setTotal(Number(result?.pagenum));
     } else {
       message.error(msg);
     }

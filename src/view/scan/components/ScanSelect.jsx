@@ -27,7 +27,7 @@ export default function ScanSelect({ changState, data, reset, searchBtn }) {
           />
         </div>
       </div>
-      <div className="scan-select-input-item">
+      {/* <div className="scan-select-input-item">
         <div className="scan-select-input-item-title">按订单号选择</div>
         <div className="scan-select-input">
           <Input
@@ -44,7 +44,7 @@ export default function ScanSelect({ changState, data, reset, searchBtn }) {
             }}
           />
         </div>
-      </div>
+      </div> */}
       <div className="scan-select-input-item">
         <div className="scan-select-input-item-title">按用户账号选择</div>
         <div className="scan-select-input">

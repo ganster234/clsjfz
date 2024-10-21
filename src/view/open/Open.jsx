@@ -31,9 +31,14 @@ export default function Open() {
   const [dateOpen, setDateOpen] = useState(false); //时间
   const [createOpen, setCreateOpen] = useState(false); //创建open
   const [exportOpen, setExportOpen] = useState(false); //导出
+  const Userid = sessionStorage.getItem("user");
+
   const [state, setState] = useState({
     dateList: [new Date(), new Date()], //开始时间结束时间
-    name: "",
+    name: "", //用户名称
+
+    Sid: "", //任务编号
+    Type: "1", //1op,2ck
   });
 
   useEffect(() => {
@@ -46,23 +51,34 @@ export default function Open() {
   }, [JSON.stringify(tableParams), JSON.stringify(state)]);
 
   const getList = async () => {
-    const { dateList, name } = state;
+    const { dateList, name, Type, Sid } = state;
     const { current, pageSize } = tableParams.pagination;
     let param = {
-      name: name,
-      is_op: "1",
-      page: current,
-      limit: pageSize,
-      start_time: dateList[0] && dayjs(dateList[0]).format("YYYY-MM-DD"),
-      end_time: dateList[1] && dayjs(dateList[1]).format("YYYY-MM-DD"),
+      // name: name,
+      // is_op: "1",
+      // page: current,
+      // limit: pageSize,
+      // start_time: dateList[0] && dayjs(dateList[0]).format("YYYY-MM-DD"),
+      // end_time: dateList[1] && dayjs(dateList[1]).format("YYYY-MM-DD"),
+      Sid, //任务sid
+      Username: name, //用户名
+      Userid, //用户sid
+      Type, //1
+      Lytype: "1", //q
+      Stime: dateList[0] && dayjs(dateList[0]).format("YYYY-MM-DD"), //开始时间
+      Etime: dateList[1] && dayjs(dateList[1]).format("YYYY-MM-DD"), //结束时间
+      Pagenum: current, //页数
+      Pagesize: pageSize, //一页多少
     };
     setOpenLoading(true);
     let result = await getOpenList(param);
     const { code, data, msg } = result || {};
     message.destroy();
-    if (code === 200) {
-      setTableList([...data?.data]);
-      setTotal(data?.total);
+    if (code) {
+      // setTableList([...data?.data]);
+      // setTotal(data?.total);
+      setTableList([...data]);
+      setTotal(Number(result.pagenum));
     } else {
       message.error(msg);
     }
@@ -121,7 +137,7 @@ export default function Open() {
                 />
               </span>
               <span className="create-and-export">
-                <span
+                {/* <span
                   className="create-and-export-item"
                   onClick={() => setCreateOpen(true)}
                 >
@@ -131,7 +147,7 @@ export default function Open() {
                     className="create-export"
                   />
                   创建任务
-                </span>
+                </span> */}
                 <span
                   className="create-and-export-item"
                   onClick={() => setExportOpen(true)}
@@ -172,14 +188,17 @@ export default function Open() {
                 onChange={handleTableChange}
                 columns={[
                   {
-                    title: "ID",
-                    dataIndex: "id",
-                    width: 200,
+                    title: "创建时间",
+                    dataIndex: "Device_time",
+                  },
+                  {
+                    title: "用户名称",
+                    dataIndex: "Device_user",
                   },
                   {
                     title: "任务编号",
                     width: 300,
-                    dataIndex: "openid_task_id",
+                    dataIndex: "Device_Sid",
                     render: (record) => (
                       <span className="openid-task-id">{record}</span>
                     ),
@@ -188,7 +207,7 @@ export default function Open() {
 
                   {
                     title: "任务状态",
-                    dataIndex: "status",
+                    dataIndex: "Device_remark",
                     render: (record) => (
                       <div
                         style={{ display: "flex", justifyContent: "center" }}

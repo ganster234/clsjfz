@@ -17,14 +17,19 @@ export default function Process() {
   const [loading, setLoading] = useState(false);
   const [dataList, setDataList] = useState([]);
   const [showGoldWay, setShowGoldWay] = useState(false); //显示项目选择器
-  const [goldWay, setGoldWay] = useState("-1"); //选项选中的值
+  const [goldWay, setGoldWay] = useState(""); //选项选中的值
   const [paydesignation, setpaydesignation] = useState(""); //支付名称
   const [payway, setpayway] = useState(""); //支付类型
   const [remark, setremark] = useState(""); //备注
   const [price, setprice] = useState(""); //充值额
   const [my_id, setmy_id] = useState(""); //ID
+  const [mch_wx_key, setmch_wx_key] = useState(""); //商户号
+  const [wx_app_id, setwx_app_id] = useState(""); //wx_app_id
+  const [xuliehao, setxuliehao] = useState(""); //序列号
+  const [notify_url, setnotify_url] = useState(""); //回调地址
+  const [fenclass, setfenclass] = useState({}); //分类
   const goldColumns = [
-    { value: "-1", label: "全部" },
+    { value: "", label: "全部" },
     { value: "0", label: "开启" },
     { value: "1", label: "关闭" },
   ];
@@ -36,9 +41,9 @@ export default function Process() {
 
   const getList = async () => {
     setLoading(true);
-    let result = await payprice({ is_use: goldWay });
+    let result = await payprice({ State: goldWay });
     const { code, msg, data } = result || {};
-    if (code === 200) {
+    if (code) {
       setDataList(data);
     } else {
       message.error(msg);
@@ -47,18 +52,34 @@ export default function Process() {
   };
   const handleOk = () => {
     if (additem === "修改支付") {
-      if (paydesignation === "" || price === "" || remark === "") {
+      if (
+        paydesignation === "" ||
+        price === "" ||
+        remark === "" ||
+        payway === ""
+      ) {
         message.warning("请完成填写相关内容");
       } else {
         setpayprice({
-          id: my_id,
-          pay_name: paydesignation,
-          url: payway,
-          price,
-          remark,
+          // id: my_id,
+          // pay_name: paydesignation,
+          // url: payway,
+          // price,
+          // remark,
+          Sid: my_id + "",
+          Type: fenclass.Device_type,
+          Name: paydesignation,
+          Money: price,
+          Remark: remark,
+          Bussid: mch_wx_key,
+          Appid: wx_app_id,
+          Number: xuliehao,
+          Api: notify_url,
+          Url: payway,
         }).then((result) => {
           const { code, msg } = result || {};
-          if (code === 200) {
+          // eslint-disable-next-line eqeqeq
+          if (code == 200) {
             getList();
             setadditem("");
             setremark("");
@@ -69,15 +90,29 @@ export default function Process() {
         });
       }
     } else {
-      if (payway === "" && paydesignation === "") {
+      if (
+        paydesignation === "" ||
+        price === "" ||
+        remark === "" ||
+        payway === ""
+      ) {
         message.warning("请完成填写相关内容");
       } else {
         addpayprice({
-          pay_name: paydesignation,
-          pay_type: payway,
+          // pay_name: paydesignation,
+          // pay_type: payway,
+          Name: paydesignation,
+          Type: payway,
+          Money: price,
+          Remark: remark,
+          Bussid: mch_wx_key,
+          Appid: wx_app_id,
+          Number: xuliehao,
+          Api: notify_url,
         }).then((result) => {
           const { code, msg } = result || {};
-          if (code === 200) {
+          // eslint-disable-next-line eqeqeq
+          if (code == 200) {
             getList();
             message.success("新增成功");
             setadditem("");
@@ -151,26 +186,29 @@ export default function Process() {
                     render: (record) => (
                       <>
                         <Switch
-                          checked={record.is_use === 0 ? true : false}
+                          checked={record.Device_state === "0" ? true : false}
                           checkedChildren="开启"
                           unCheckedChildren="关闭"
                           defaultChecked
                           onChange={() => {
                             setLoading(true);
-                            const is_use = record.is_use === 0 ? 1 : 0;
-                            setpayprice({ is_use, id: record.id }).then(
-                              (result) => {
-                                const { code, msg } = result || {};
-                                if (code === 200) {
-                                  getList();
-                                  message.success("修改成功");
-                                  setLoading(false);
-                                } else {
-                                  setLoading(false);
-                                  message.error(msg);
-                                }
+                            const is_use =
+                              record.Device_state === "0" ? "1" : "0";
+                            setpayprice({
+                              State: is_use,
+                              Sid: record.Device_Sid,
+                            }).then((result) => {
+                              const { code, msg } = result || {};
+                              // eslint-disable-next-line eqeqeq
+                              if (code == 200) {
+                                getList();
+                                message.success("修改成功");
+                                setLoading(false);
+                              } else {
+                                setLoading(false);
+                                message.error(msg);
                               }
-                            );
+                            });
                           }}
                         />
                       </>
@@ -181,13 +219,16 @@ export default function Process() {
                     render: (record) => (
                       <Button
                         onClick={() => {
-                          setpaydesignation(
-                            record.pay_name ? record.pay_name : ""
-                          );
-                          setpayway(record.url ? record.url : "");
-                          setprice(record.price ? record.price : "");
-                          setremark(record.remark ? record.remark : "");
-                          setmy_id(record.id ? record.id : "");
+                          setpaydesignation(record.Device_name);
+                          setpayway(record.Device_url);
+                          setprice(record.Device_money);
+                          setremark(record.Device_remark);
+                          setmy_id(record.Device_Sid);
+                          setmch_wx_key(record.Device_bussid);
+                          setwx_app_id(record.Device_appid);
+                          setxuliehao(record.Device_munber);
+                          setnotify_url(record.Device_api);
+                          setfenclass(record);
                           setadditem("修改支付");
                         }}
                         size="small"
@@ -232,7 +273,7 @@ export default function Process() {
         <div className="addXM">
           <ul>
             <li>
-              <p>名称：</p>
+              <p className="form-label">支付名称：</p>
               <Input
                 style={{
                   "--placeholder-color": "#BFBFBF",
@@ -246,7 +287,7 @@ export default function Process() {
               />
             </li>
             <li>
-              <p>{additem === "新增支付" ? "类型：" : "URL："}</p>
+              <p>{additem === "新增支付" ? "支付类型：" : "URL："}</p>
               <Input
                 style={{
                   "--placeholder-color": "#BFBFBF",
@@ -259,28 +300,55 @@ export default function Process() {
                 clearable
               />
             </li>
-            {additem === "修改支付" ? (
-              <>
-                <li>
-                  <p>充值额：</p>
-                  <Input
-                    value={price}
-                    placeholder="请输入相关内容"
-                    onChange={(val) => setprice(val)}
-                  ></Input>
-                </li>
-                <li>
-                  <p>备注：</p>
-                  <Input
-                    value={remark}
-                    placeholder="请输入相关内容"
-                    onChange={(val) => setremark(val)}
-                  ></Input>
-                </li>
-              </>
-            ) : (
-              <></>
-            )}
+
+            <li>
+              <p>充值额：</p>
+              <Input
+                value={price}
+                placeholder="请输入相关内容"
+                onChange={(val) => setprice(val)}
+              ></Input>
+            </li>
+            <li>
+              <p>备注：</p>
+              <Input
+                value={remark}
+                placeholder="请输入相关内容"
+                onChange={(val) => setremark(val)}
+              ></Input>
+            </li>
+            <li>
+              <p>商户号：</p>
+              <Input
+                value={mch_wx_key}
+                placeholder="请输入相关内容"
+                onChange={(val) => setmch_wx_key(val)}
+              ></Input>
+            </li>
+            <li>
+              <p>app_id：</p>
+              <Input
+                value={wx_app_id}
+                placeholder="请输入相关内容"
+                onChange={(val) => setwx_app_id(val)}
+              ></Input>
+            </li>
+            <li>
+              <p>序列号：</p>
+              <Input
+                value={xuliehao}
+                placeholder="请输入相关内容"
+                onChange={(val) => setxuliehao(val)}
+              ></Input>
+            </li>
+            <li>
+              <p>回调地址：</p>
+              <Input
+                value={notify_url}
+                placeholder="请输入相关内容"
+                onChange={(val) => setnotify_url(val)}
+              ></Input>
+            </li>
           </ul>
           <footer>
             <Button onClick={() => handleOk()} type="primary">

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input, Table, message } from "antd";
-import { Popup, Calendar } from "antd-mobile";
+import { Popup, Calendar, Picker } from "antd-mobile";
 import { SearchOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 
@@ -16,6 +16,12 @@ import { openColumns } from "../../utils/columns";
 import "./Ck.less";
 import "../../assets/css/Calendar.less";
 
+const basicColumns = [
+  [
+    { label: "套餐(Q)", value: "1" },
+    { label: "套餐(W)", value: "2" },
+  ],
+];
 export default function Ck() {
   const navigate = useNavigate();
   const [height, setHeight] = useState(0);
@@ -34,7 +40,12 @@ export default function Ck() {
   const [state, setState] = useState({
     dateList: [new Date(), new Date()], //开始时间结束时间
     name: "",
+    Sid: "", //任务编号
+    Type: "2", //1op,2ck
   });
+  const Userid = sessionStorage.getItem("user");
+  const [channelVisible, setChannelVisible] = useState(false); //显示类别
+  const [lytype, setLytype] = useState({ label: "套餐(Q)", value: "1" }); //显示类别 1q 2v
 
   useEffect(() => {
     //高度自适应
@@ -43,26 +54,33 @@ export default function Ck() {
       setHeight(getResidueHeightByDOMRect());
     };
     getList();
-  }, [JSON.stringify(tableParams), JSON.stringify(state)]);
+  }, [
+    JSON.stringify(tableParams),
+    JSON.stringify(state),
+    JSON.stringify(lytype),
+  ]);
 
   const getList = async () => {
-    const { dateList, name } = state;
+    const { dateList, name, Type, Sid } = state;
     const { current, pageSize } = tableParams.pagination;
     let param = {
-      name: name,
-      is_op: "2",
-      page: current,
-      limit: pageSize,
-      start_time: dateList[0] && dayjs(dateList[0]).format("YYYY-MM-DD"),
-      end_time: dateList[1] && dayjs(dateList[1]).format("YYYY-MM-DD"),
+      Sid: Sid, //任务sid
+      Username: name, //用户名
+      Userid, //用户sid
+      Type, //1
+      Lytype: lytype.value, //q或者v
+      Stime: dateList[0] && dayjs(dateList[0]).format("YYYY-MM-DD"), //开始时间
+      Etime: dateList[1] && dayjs(dateList[1]).format("YYYY-MM-DD"), //结束时间
+      Pagenum: current.toString(), //页数
+      Pagesize: pageSize.toString(), //一页多少
     };
     setCkLoading(true);
     let result = await getOpenList(param);
     const { code, data, msg } = result || {};
     message.destroy();
-    if (code === 200) {
-      setTableList([...data?.data]);
-      setTotal(data?.total);
+    if (code) {
+      setTableList([...data]);
+      setTotal(Number(result.pagenum));
     } else {
       message.error(msg);
     }
@@ -84,6 +102,17 @@ export default function Ck() {
   };
   const closeExportPopup = (data) => {
     setExportck(data);
+  };
+
+  const changeState = (str, item) => {
+    if (Array.isArray(item) && item.length > 0) {
+      const [value] = item;
+      const foundItem = basicColumns[0].find((obj) => obj.value === value);
+
+      setLytype({ ...foundItem });
+
+      console.log(foundItem, "foundItem", value);
+    }
   };
   return (
     <>
@@ -120,8 +149,19 @@ export default function Ck() {
                   className="ck-date-and-time-triangle"
                 />
               </span>
+              <span
+                className="ck-top-date-time"
+                onClick={() => setChannelVisible(true)}
+              >
+                <span>{lytype.label}</span>
+                <img
+                  src={require("../../assets/image/triangle.png")}
+                  alt=""
+                  className="ck-date-and-time-triangle"
+                />
+              </span>
               <span className="create-and-export">
-                <span
+                {/* <span
                   className="create-and-export-item"
                   onClick={() => setCreateck(true)}
                 >
@@ -131,7 +171,7 @@ export default function Ck() {
                     className="create-export"
                   />
                   创建任务
-                </span>
+                </span> */}
                 <span
                   className="create-and-export-item"
                   onClick={() => setExportck(true)}
@@ -172,14 +212,17 @@ export default function Ck() {
                 onChange={handleTableChange}
                 columns={[
                   {
-                    title: "ID",
-                    dataIndex: "id",
-                    width: 200,
+                    title: "创建时间",
+                    dataIndex: "Device_time",
+                  },
+                  {
+                    title: "用户名称",
+                    dataIndex: "Device_user",
                   },
                   {
                     title: "任务编号",
                     width: 300,
-                    dataIndex: "openid_task_id",
+                    dataIndex: "Device_Sid",
                     render: (record) => (
                       <span className="ckid-task-id">{record}</span>
                     ),
@@ -188,7 +231,7 @@ export default function Ck() {
 
                   {
                     title: "任务状态",
-                    dataIndex: "status",
+                    dataIndex: "Device_remark",
                     render: (record) => (
                       <div
                         style={{ display: "flex", justifyContent: "center" }}
@@ -274,6 +317,17 @@ export default function Ck() {
             >
               <ExportPopup closeExportPopup={closeExportPopup} />
             </Popup>
+            <Picker
+              columns={basicColumns}
+              visible={channelVisible}
+              onClose={() => {
+                setChannelVisible(false);
+              }}
+              value={lytype.value}
+              onConfirm={(v) => {
+                changeState("type", v);
+              }}
+            />
           </div>
         }
       />
