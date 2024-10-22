@@ -7,12 +7,12 @@ export const getRecharge = (data) => {
 
 //微信充值
 export const setPayMoney = (data) => {
-  return postData("wechat/create", data);
+  return postData("OuxdAdd", data);
 };
 
 // 查询订单
 export const getPayStatus = (data) => {
-  return getData("pay/serach/status", data);
+  return postData("OuxdGet", data);
 };
 
 //USTD充值

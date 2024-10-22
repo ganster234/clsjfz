@@ -129,21 +129,34 @@ export default function Gold() {
   //发起订单，返回的是支付二维码,对接完成
   const rechargeMoney = async () => {
     setGoldLoading(true);
-    let result = await setPayMoney({
-      title: `充值${activeMoney}元`,
-      price: activeMoney + "",
-      num: 1,
-      type: postElection.pay_type, //w    1  微信支付 2 支付宝
-    });
-    const { code, data, msg } = result || {};
+    const prams = {
+      Usersid: Userid,
+      Username: userInfo.Device_name,
+      Num: "1",
+      Money: activeMoney + "",
+      Btmoney: "显示" + activeMoney,
+      Code: "",
+      Type: postElection.Device_type,
+    };
+    let result = await setPayMoney(prams);
+    // let result = await setPayMoney({
+    //   title: `充值${activeMoney}元`,
+    //   price: activeMoney + "",
+    //   num: 1,
+    //   type: postElection.pay_type, //w    1  微信支付 2 支付宝
+    // });
+    // const { code, data, msg } = result || {};
+    const { code, orderId, orderurl, msg } = result || {};
+
     message.destroy();
     if (code === 200) {
-      setWexinSrc(data?.img);
+      setWexinSrc(decodeURIComponent(orderurl));
       setWexinOpen(true);
       setGoldLoading(false);
       //调起轮询
       times = setInterval(() => {
-        checkStatus(data?.order_id);
+        // checkStatus(data?.order_id);
+        checkStatus(orderId);
       }, 1000);
     } else {
       message.error(msg);
@@ -152,24 +165,26 @@ export default function Gold() {
 
   //轮循订单
   const checkStatus = (order_id) => {
-    getPayStatus({ order_id: order_id }).then((result) => {
-      if (result?.code === 200 && result?.data === 1) {
-        clearInterval(times);
-        setWexinOpen(false);
-        setRechargeStatus("payOk");
-        setWexinSrc("");
-        setKamiState({
-          one: 0,
-          one_hundred: 0,
-          two_hundred: 0,
-          five__hundred: 0,
-          one_thousand: 0,
-        });
-        message.success("支付成功");
-        //更新本地数据
-        getUserInfo();
+    getPayStatus({ Sid: order_id, Type: postElection.Device_type }).then(
+      (result) => {
+        if (result?.code === "200") {
+          clearInterval(times);
+          setWexinOpen(false);
+          setRechargeStatus("payOk");
+          setWexinSrc("");
+          setKamiState({
+            one: 0,
+            one_hundred: 0,
+            two_hundred: 0,
+            five__hundred: 0,
+            one_thousand: 0,
+          });
+          message.success("支付成功");
+          //更新本地数据
+          getUserInfo();
+        }
       }
-    });
+    );
   };
 
   const geUstdsao = () => {
@@ -250,15 +265,19 @@ export default function Gold() {
         ...kamiState,
       }),
     });
-    const { code, data, msg } = result || {};
+    // const { code, data, msg } = result || {};
+    const { code, orderurl, orderId, msg } = result || {};
+
     message.destroy();
     if (code === 200) {
-      setWexinSrc(data?.img);
+      // setWexinSrc(data?.img);
+      setWexinSrc(decodeURIComponent(orderurl));
       setWexinOpen(true);
       setGoldLoading(false);
       //调起轮询
       times = setInterval(() => {
-        checkStatus(data?.order_id);
+        // checkStatus(data?.order_id);
+        checkStatus(orderId);
       }, 1000);
     } else {
       message.error(msg);
@@ -451,7 +470,7 @@ export default function Gold() {
                             请在钱包向收款账户转账充U金额，打款
                             成功后24小时内充值成功。
                             <span style={{ color: "red" }}>
-                              （USDT汇率：{userInfo?.usdt_rate || ""}）
+                              （USDT汇率：{userInfo?.Device_hl || ""}）
                             </span>
                           </span>
                         </div>
