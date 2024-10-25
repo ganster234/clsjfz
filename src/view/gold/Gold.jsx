@@ -150,17 +150,18 @@ export default function Gold() {
 
     message.destroy();
     if (code === 200) {
-      // setWexinSrc(decodeURIComponent(orderurl));
-      // setWexinOpen(true);
-      // setGoldLoading(false);
-      // //调起轮询
-      // times = setInterval(() => {
-      //   // checkStatus(data?.order_id);
-      //   checkStatus(orderId);
-      // }, 1000);
-      const decodedUrl = decodeURIComponent(result.orderweburl);
-      console.log(decodedUrl, "decodedUrlsaoma");
-      window.open(decodedUrl);
+      setWexinSrc(decodeURIComponent(orderurl));
+      setWexinOpen(true);
+      setGoldLoading(false);
+      //调起轮询
+      times = setInterval(() => {
+        // checkStatus(data?.order_id);
+        checkStatus(orderId);
+      }, 1000);
+      // ////新支付///
+      // const decodedUrl = decodeURIComponent(result.orderweburl);
+      // console.log(decodedUrl, "decodedUrlsaoma");
+      // window.open(decodedUrl);
     } else {
       message.error(msg);
     }
@@ -225,15 +226,17 @@ export default function Gold() {
     //   addr: Topupaccount,
     // });
     if (result?.code === 200) {
-      const decodedUrl = decodeURIComponent(result.orderweburl);
-      console.log(decodedUrl, "decodedUrlsaoma");
-      window.open(decodedUrl);
-      // message.success("提交成功，请等待审核");
-      // setActiveMoney("100");
-      // setGoldLoading(false);
-      // setRechargeStatus("payCareful");
-      // //更新本地数据
-      // getUserInfo();
+      // 新版充值
+      // const decodedUrl = decodeURIComponent(result.orderweburl);
+      // console.log(decodedUrl, "decodedUrlsaoma");
+      // window.open(decodedUrl);
+      ///////////老板充值////
+      message.success("提交成功，请等待审核");
+      setActiveMoney("100");
+      setGoldLoading(false);
+      setRechargeStatus("payCareful");
+      //更新本地数据
+      getUserInfo();
     } else {
       message.error(result?.msg);
     }
@@ -598,16 +601,13 @@ export default function Gold() {
                       </>
                     )}
                     {goldWay === "ustd" ? (
-                      Topupaccount.length > 20 ? (
-                        <div
-                          className="gold-bottom-btn"
-                          onClick={() => recharge()}
-                        >
-                          立即充值
-                        </div>
-                      ) : (
-                        <></>
-                      )
+                      // Topupaccount.length > 20
+                      <div
+                        className="gold-bottom-btn"
+                        onClick={() => recharge()}
+                      >
+                        立即充值
+                      </div>
                     ) : (
                       <div
                         className="gold-bottom-btn"

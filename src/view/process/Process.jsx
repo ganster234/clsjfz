@@ -13,6 +13,7 @@ import "./Process.less";
 import "../../assets/css/Calendar.less";
 
 export default function Process() {
+  const Userid = sessionStorage.getItem("user");
   const navigate = useNavigate();
   let bgColor = {
     0: "#2773F2",
@@ -60,6 +61,7 @@ export default function Process() {
       // page: str ? 1 : current,
       // limit: str ? 10 : pageSize,
       // status: -1,
+      Usersid: Userid,
       Name: account ? "" : state.account, //名称
       State: "-1", //状态0派单中 1失败 2成功
       Pagenum: account ? 1 : current, //页数
@@ -77,7 +79,7 @@ export default function Process() {
       // setDataList([...data?.data.data]);
       // setTotal(data?.data.total);
       setDataList([...data]);
-      setTotal(pagenum);
+      setTotal(Number(pagenum));
     } else {
       message.destroy();
       message.error(msg);

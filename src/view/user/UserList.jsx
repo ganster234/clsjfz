@@ -66,7 +66,7 @@ export default function UserList() {
     if (code) {
       if (data.length) {
         setDataList([...data]);
-        setTotal(data?.total);
+        setTotal(Number(result?.pagenum));
         setLoading(false);
       }
     } else {

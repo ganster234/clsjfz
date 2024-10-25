@@ -52,7 +52,7 @@ export default function Payment() {
       // end_time: dayjs(dateList[1] || new Date()).format("YYYY-MM-DD"),
       // page: current,
       // limit: pageSize,
-      Userid: userInfo.Device_Sid,
+      Usersid: userInfo.Device_Sid,
       Stime: dayjs(dateList[0] || new Date()).format("YYYY-MM-DD"),
       Etime: dayjs(dateList[1] || new Date()).format("YYYY-MM-DD"),
       Pagenum: current,
@@ -64,6 +64,7 @@ export default function Payment() {
       // setTotal(data?.list.total);
       // setaggregate(data?.total);
       console.log(result, "resultresultresult");
+      setTotal(Number(result?.pagenum));
       setDataList([...data]);
     } else {
       message.destroy();

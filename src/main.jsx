@@ -23,7 +23,7 @@ if (isMobile()) {
   // 在这里执行手机端的操作
 } else {
   console.log("大屏幕访问");
-  // window.location.href = "https://www.seolkf830.com/";
+  window.location.href = "https://www.shouquan123.com/#/";
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
